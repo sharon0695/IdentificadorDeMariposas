@@ -1,11 +1,12 @@
-package main.java.com.proyecto.proyecto.controller;
+package com.proyecto.proyecto.controller;
 
-import main.java.com.proyecto.proyecto.model.Observacion;
-import main.java.com.proyecto.proyecto.service.IObservacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.proyecto.proyecto.model.Observacion;
+import com.proyecto.proyecto.service.IObservacionService;
+
+import java.util.List; 
 
 @RestController
 @RequestMapping("/api/observaciones")

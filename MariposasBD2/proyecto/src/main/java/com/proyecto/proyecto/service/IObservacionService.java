@@ -1,7 +1,7 @@
-package main.java.com.proyecto.proyecto.service;
+package com.proyecto.proyecto.service;
 
 import java.util.List;
-import main.java.com.proyecto.proyecto.model.Observacion;
+import com.proyecto.proyecto.model.Observacion;
 
 public interface IObservacionService {
     Observacion guardar(Observacion observacion);

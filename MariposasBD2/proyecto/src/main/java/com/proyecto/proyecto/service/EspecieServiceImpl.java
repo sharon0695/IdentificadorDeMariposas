@@ -1,8 +1,8 @@
-package main.java.com.proyecto.proyecto.service;
+package com.proyecto.proyecto.service;
 
-import main.java.com.proyecto.proyecto.iservice.IEspecieService;
-import main.java.com.proyecto.proyecto.model.Especie;
-import main.java.com.proyecto.proyecto.repository.EspecieRepository;
+import com.proyecto.proyecto.service.IEspecieService;
+import com.proyecto.proyecto.model.Especie;
+import com.proyecto.proyecto.repository.EspecieRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;

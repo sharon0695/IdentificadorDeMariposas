@@ -1,6 +1,6 @@
-package main.java.com.proyecto.proyecto.service;
+package com.proyecto.proyecto.service;
 
-import main.java.com.proyecto.proyecto.model.Especie;
+import com.proyecto.proyecto.model.Especie;
 import java.util.List;
 import java.util.Optional;
 

@@ -1,6 +1,7 @@
-package main.java.com.proyecto.proyecto.repository;
+package com.proyecto.proyecto.repository;
 
-import main.java.com.proyecto.proyecto.model.Especie;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import com.proyecto.proyecto.model.Usuario;
 
-public interface IUsuarioRepository extends MongoRepository<Especie, String> { }
+public interface IUsuarioRepository extends MongoRepository<Usuario, String> {
+}

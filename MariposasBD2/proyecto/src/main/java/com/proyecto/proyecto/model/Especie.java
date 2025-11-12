@@ -1,4 +1,4 @@
-package main.java.com.proyecto.proyecto.model;
+package com.proyecto.proyecto.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,15 +12,15 @@ public class Especie {
     private String nombreCientifico;
     private String nombreComun;
     private String familia;
-    private String tipoEspecie; // diurna, nocturna, etc.
+    private String tipoEspecie; 
     private String descripcion;
     private List<String> imagenes;
 
     private ImagenesDetalladas imagenesDetalladas;
     private CaracteristicasMorfo caracteristicasMorfo;
-    private String ubicacionRecoleccion; // referencia a Ubicaciones
+    private String ubicacionRecoleccion; 
     private Date fechaRegistro;
-    private String registradoPor; // referencia a Usuarios
+    private String registradoPor; 
 
     public static class ImagenesDetalladas {
         private String alaIzquierda;
@@ -40,4 +40,99 @@ public class Especie {
     }
 
     // Getters y Setters
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getNombreCientifico() {
+        return nombreCientifico;
+    }
+
+    public void setNombreCientifico(String nombreCientifico) {
+        this.nombreCientifico = nombreCientifico;
+    }
+
+    public String getNombreComun() {
+        return nombreComun;
+    }
+
+    public void setNombreComun(String nombreComun) {
+        this.nombreComun = nombreComun;
+    }
+
+    public String getFamilia() {
+        return familia;
+    }
+
+    public void setFamilia(String familia) {
+        this.familia = familia;
+    }
+
+    public String getTipoEspecie() {
+        return tipoEspecie;
+    }
+
+    public void setTipoEspecie(String tipoEspecie) {
+        this.tipoEspecie = tipoEspecie;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public List<String> getImagenes() {
+        return imagenes;
+    }
+
+    public void setImagenes(List<String> imagenes) {
+        this.imagenes = imagenes;
+    }
+
+    public ImagenesDetalladas getImagenesDetalladas() {
+        return imagenesDetalladas;
+    }
+
+    public void setImagenesDetalladas(ImagenesDetalladas imagenesDetalladas) {
+        this.imagenesDetalladas = imagenesDetalladas;
+    }
+
+    public CaracteristicasMorfo getCaracteristicasMorfo() {
+        return caracteristicasMorfo;
+    }
+
+    public void setCaracteristicasMorfo(CaracteristicasMorfo caracteristicasMorfo) {
+        this.caracteristicasMorfo = caracteristicasMorfo;
+    }
+
+    public String getUbicacionRecoleccion() {
+        return ubicacionRecoleccion;
+    }
+
+    public void setUbicacionRecoleccion(String ubicacionRecoleccion) {
+        this.ubicacionRecoleccion = ubicacionRecoleccion;
+    }
+
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public String getRegistradoPor() {
+        return registradoPor;
+    }
+
+    public void setRegistradoPor(String registradoPor) {
+        this.registradoPor = registradoPor;
+    }
 }

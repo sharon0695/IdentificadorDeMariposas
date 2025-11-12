@@ -1,5 +1,3 @@
-package main.java.com.proyecto.proyecto.model;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
@@ -8,10 +6,49 @@ import java.util.Date;
 public class Observacion {
     @Id
     private String id;
-    private String especieId; // referencia a Especies
-    private String usuarioId; // referencia a Usuarios
+    private String especieId; 
+    private String usuarioId; 
     private String comentario;
     private Date fecha;
 
     // Getters y Setters
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getEspecieId() {
+        return especieId;
+    }
+
+    public void setEspecieId(String especieId) {
+        this.especieId = especieId;
+    }
+
+    public String getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(String usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
 }

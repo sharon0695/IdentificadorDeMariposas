@@ -1,4 +1,4 @@
-package main.java.com.proyecto.proyecto.Security;
+package com.proyecto.proyecto.Security;
 
 public class CustomUserDetailsService {
 

@@ -1,0 +1,39 @@
+<div class="d-flex align-items-center justify-content-center vh-100" style="background-color: #5C415D;">
+
+
+  <div class="col-11 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+    <div class="card shadow-lg border-0 rounded-lg">
+      <div class="card-header text-center text-white p-4 border-0" style="background-color: #E94F37;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-person-circle mb-2" viewBox="0 0 16 16">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+        </svg>
+        <h3 class="fw-light my-2">Crear Cuenta</h3>
+      </div>
+      <div class="card-body p-4">
+        <form>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="username" placeholder="Tu nombre de usuario">
+            <label for="username">Nombre de Usuario</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com">
+            <label for="email">Correo Electrónico</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="password" placeholder="Contraseña">
+            <label for="password">Contraseña</label>
+          </div>
+          <div class="d-grid mt-4 mb-3">
+            <button type="submit" class="btn btn-lg text-white" style="background-color: #E94F37;">Registrarse</button>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer text-center py-3 border-0">
+        <div class="small">
+            <a routerLink="/Login">¿Ya tienes una cuenta? Inicia sesión</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

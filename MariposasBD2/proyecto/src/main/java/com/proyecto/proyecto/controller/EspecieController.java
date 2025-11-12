@@ -1,7 +1,7 @@
-package main.java.com.proyecto.proyecto.controller;
+package com.proyecto.proyecto.controller;
 
-import main.java.com.proyecto.proyecto.model.Especie;
-import main.java.com.proyecto.proyecto.iservice.IEspecieService;
+import com.proyecto.proyecto.model.Especie;
+import com.proyecto.proyecto.service.IEspecieService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
