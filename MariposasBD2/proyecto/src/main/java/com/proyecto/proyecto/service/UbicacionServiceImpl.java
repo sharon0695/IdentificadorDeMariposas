@@ -9,26 +9,25 @@ import com.proyecto.proyecto.repository.IUbicacionRepository;
 @Service
 public class UbicacionServiceImpl implements IUbicacionService {
 
-    @Autowired
-    private IUbicacionRepository repository;
+    @Autowired IUbicacionRepository ubicacionRepository;
 
     @Override
     public Ubicacion guardar(Ubicacion ubicacion) {
-        return repository.save(ubicacion);
+        return ubicacionRepository.save(ubicacion);
     }
 
     @Override
     public List<Ubicacion> listar() {
-        return repository.findAll();
+        return ubicacionRepository.findAll();
     }
 
     @Override
     public Ubicacion obtenerPorId(String id) {
-        return repository.findById(id).orElse(null);
+        return ubicacionRepository.findById(id).orElse(null);
     }
 
     @Override
     public void eliminar(String id) {
-        repository.deleteById(id);
+        ubicacionRepository.deleteById(id);
     }
 }

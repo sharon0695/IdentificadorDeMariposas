@@ -1,16 +1,15 @@
-package main.java.com.proyecto.proyecto.service;
+package com.proyecto.proyecto.service;
 
 import org.springframework.stereotype.Service;
 import java.util.List;
-import main.java.com.proyecto.proyecto.model.Observacion;
-import main.java.com.proyecto.proyecto.repository.ObservacionRepository;
+import com.proyecto.proyecto.model.Observacion;
+import com.proyecto.proyecto.repository.IObservacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class ObservacionServiceImpl implements IObservacionService {
 
-    @Autowired
-    private ObservacionRepository repository;
+    @Autowired IObservacionRepository repository;
 
     @Override
     public Observacion guardar(Observacion observacion) {
