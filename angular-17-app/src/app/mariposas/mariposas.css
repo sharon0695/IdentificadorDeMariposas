@@ -1,0 +1,153 @@
+/* --- CONTENEDOR PRINCIPAL --- */
+.app-container {
+  display: grid;
+  grid-template-columns: 250px 1fr 250px;
+  height: 100vh;
+  background: #f5f5f5;
+  gap: 10px;
+  padding: 10px;
+}
+
+/* --- PANEL IZQUIERDO --- */
+.left-panel {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.left-panel h3 {
+  margin: 0 0 10px 0;
+}
+
+.dato {
+  font-size: 14px;
+  padding: 4px 0;
+}
+
+.obs-box {
+  width: 100%;
+  height: 80px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
+/* --- BOTÓN API --- */
+.btn-api {
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  background: #4c8bf5;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-api:hover { background: #2c6ce3; }
+
+/* --- CENTRO: IMAGEN --- */
+.center-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-container {
+  position: relative;
+  width: 350px;
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.arrow.left { left: -40px; }
+.arrow.right { right: -40px; }
+
+/* --- BOTÓN IDENTIFICAR --- */
+.btn-identificar {
+  margin-top: 20px;
+  padding: 12px 25px;
+  border: none;
+  background: #00b894;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.btn-identificar:hover { background: #009e7f; }
+
+/* --- PANEL DERECHO --- */
+.right-panel {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+/* --- BUSCADOR --- */
+.search-box {
+  display: flex;
+  gap: 8px;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* --- BOTÓN SALIR --- */
+.btn-logout {
+  padding: 8px 12px;
+  background: #d63031;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-logout:hover { background: #b02121; }
+
+/* --- LISTA DERECHA --- */
+.lista {
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.item {
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.item:hover {
+  background: #f0f0f0;
+}

@@ -1,0 +1,62 @@
+<div class="app-container">
+
+  <!-- COLUMNA IZQUIERDA: Datos -->
+  <aside class="left-panel">
+    <h3>Datos</h3>
+
+    <div class="dato"><strong>ID:</strong> {{ especieSeleccionada?.id || '—' }}</div>
+    <div class="dato"><strong>Nombre:</strong> {{ especieSeleccionada?.nombreComun || '—' }}</div>
+    <div class="dato"><strong>Científico:</strong> {{ especieSeleccionada?.nombreCientifico || '—' }}</div>
+    <div class="dato"><strong>Observaciones:</strong></div>
+    <textarea [(ngModel)]="observacion" class="obs-box"></textarea>
+
+    <button class="btn-api" (click)="verMapa()">Ver Mapa (API)</button>
+  </aside>
+
+  <!-- ZONA CENTRAL: Imagen grande -->
+  <section class="center-panel">
+
+    <div class="img-container">
+      <button class="arrow left" (click)="anterior()">&lt;</button>
+
+      <!-- Imagen seleccionada -->
+      <img
+        [src]="especieSeleccionada?.imagenes?.length
+                ? especieSeleccionada!.imagenes[imgIndex]
+                : 'assets/default-mariposa.png'"
+        alt="mariposa">
+
+      <button class="arrow right" (click)="siguiente()">&gt;</button>
+    </div>
+
+    <!-- Botón identificar -->
+    <button class="btn-identificar" (click)="identificar()">
+      Identificar
+    </button>
+
+  </section>
+
+  <!-- COLUMNA DERECHA: Buscador + lista -->
+  <aside class="right-panel">
+
+    <!-- Buscador -->
+    <div class="search-box">
+      <input type="text"
+             placeholder="Buscar especie..."
+             [(ngModel)]="busqueda">
+
+      <button class="btn-logout" (click)="logout()">Salir</button>
+    </div>
+
+    <!-- Lista -->
+    <div class="lista">
+      <div class="item"
+           *ngFor="let esp of mariposasFiltradas"
+           (click)="seleccionar(esp)">
+        {{ esp.nombreComun }}
+      </div>
+    </div>
+
+  </aside>
+
+</div>

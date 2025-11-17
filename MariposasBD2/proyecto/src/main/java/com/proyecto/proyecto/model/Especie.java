@@ -31,6 +31,42 @@ public class Especie {
         private String patas;
         private String cabeza;
         // Getters y Setters
+        public String getAlaIzquierda(){
+            return alaIzquierda;
+        }
+        public void setAlaIzquierda(String alaIzquierda){
+            this.alaIzquierda = alaIzquierda;
+        }
+        public String getAlaDerecha(){
+            return alaDerecha;
+        }
+        public void setAlaDerecha(String alaDerecha){
+            this.alaDerecha = alaDerecha;
+        }
+        public String getAntenas(){
+            return antenas;
+        }
+        public void setAntenas(String antenas){
+            this.antenas = antenas;
+        }
+        public String getCuerpo(){
+            return cuerpo;
+        }
+        public void setCuerpo(String cuerpo){
+            this.cuerpo = cuerpo;
+        }
+        public String getPatas(){
+            return patas;
+        }
+        public void setPatas(String patas){
+            this.patas = patas;
+        }
+        public String getCabeza(){
+            return cabeza;
+        }
+        public void setCabeza(String cabeza){
+            this.cabeza = cabeza;
+        }
     }
 
     public static class CaracteristicasMorfo {
@@ -38,6 +74,24 @@ public class Especie {
         private String tamañoAlas;
         private String formaAntenas;
         // Getters y Setters
+        public String getColor(){
+            return color;
+        }
+        public void setColor(String color){
+            this.color = color;
+        }
+        public String getTamañoAlas(){
+            return tamañoAlas;
+        }
+        public void setTamañoAlas(String tamañoAlas){
+            this.tamañoAlas = tamañoAlas;
+        }
+        public String getFormaAntenas(){
+            return formaAntenas;
+        }
+        public void setFormaAntenas(String formaAntenas){
+            this.formaAntenas = formaAntenas;
+        }
     }
 
     // Getters y Setters
