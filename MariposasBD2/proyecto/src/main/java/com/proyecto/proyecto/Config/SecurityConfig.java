@@ -13,8 +13,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.proyecto.proyecto.repository.IUsuarioRepository;
 import com.proyecto.proyecto.Security.JwtAuthenticationFilter;
@@ -27,28 +28,19 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .cors(Customizer.withDefaults())
-            .csrf(csrf -> csrf.disable())
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .requestMatchers(             
-                    "/",            
-                    "/static/**",                    
-                    "/images/**",
-                    "/archivos/**",
-                    "/api/especies/**",
-                    "/api/observaciones/**",
-                    "/api/ubicaciones/**",
-                    "/api/usuarios/**"
-                ).permitAll()
 
-                .anyRequest().authenticated()
+        http.csrf(csrf -> csrf.disable()) // deshabilitar CSRF (necesario para Angular/React)
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/usuarios/login", "/api/usuarios/**").permitAll() // permitir login
+                .anyRequest().authenticated() // lo demás requiere token
             );
 
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean

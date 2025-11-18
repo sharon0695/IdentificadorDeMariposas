@@ -11,14 +11,14 @@ public class LoginResponse {
     private String correo;
     private String rol;
 
-    public String getAccesToken() { return accessToken; }
+    public String getAccessToken() { return accessToken; }
     public String getTokenType() { return tokenType; }
     public long getExpiresInMillis() { return expiresInMillis; }
     public String getNombre() { return nombre; }
     public String getCorreo() { return correo; }
     public String getRol() { return rol; }
 
-    public void setAccesToken(String accessToken) { this.accessToken = accessToken; }
+    public void setAccessToken(String accessToken) { this.accessToken = accessToken; }
     public void setTokenType(String tokenType) { this.tokenType = tokenType; }
     public void setExpiresInMillis(long expiresInMillis) { this.expiresInMillis = expiresInMillis; }
     public void setNombre(String nombre) { this.nombre = nombre; }

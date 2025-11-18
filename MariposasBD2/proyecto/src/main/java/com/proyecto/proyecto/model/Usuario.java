@@ -1,15 +1,19 @@
 package com.proyecto.proyecto.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Document(collection = "usuarios")
 public class Usuario {
     @Id
     private String id;
     private String nombre;
     private String correo;
+    private String contrasena;
     private String rol; 
     private Date fechaRegistro;
 
@@ -36,6 +40,14 @@ public class Usuario {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     public String getRol() {

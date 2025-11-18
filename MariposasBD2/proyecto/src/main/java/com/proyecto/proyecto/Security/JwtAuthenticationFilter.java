@@ -32,6 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         "/api/usuarios",
         "/api/usuarios/",
         "/login",
+        "/listar",
         "/",
         "/static",
         "/static/"
@@ -49,6 +50,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
+        String path = request.getServletPath();
+
+        if (path.startsWith("/api/usuarios/login") ||
+            path.startsWith("/api/usuarios") ||
+            path.startsWith("/api/public") ||
+            path.equals("/")) {
+
+            filterChain.doFilter(request, response);
+            return;
+        }
         // 🔥 1. Si la ruta es pública → ignorar COMPLETAMENTE la validación JWT
         if (isPublic(request)) {
             filterChain.doFilter(request, response);

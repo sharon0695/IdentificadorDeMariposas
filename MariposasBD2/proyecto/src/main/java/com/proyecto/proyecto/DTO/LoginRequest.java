@@ -8,8 +8,8 @@ public class LoginRequest {
     private String contrasena;
 
     public String getCorreo() { return correo; }
-    public void setEmail(String correo) { this.correo = correo; }
+    public void setCorreo(String correo) { this.correo = correo; }
 
     public String getContrasena() { return contrasena; }
-    public void setPassword(String contrasena) { this.contrasena = contrasena; }
+    public void setContrasena(String contrasena) { this.contrasena = contrasena; }
 }

@@ -37,14 +37,19 @@ public class UsuarioServiceImpl implements IUsuarioService {
             throw new IllegalArgumentException("La contraseña es obligatoria");
         }
 
-        Optional<Usuario> usuarioOpt = repository.findByCorreo(correo);
+        System.out.println("Login attempt for correo: " + request.getCorreo());
+        Optional<Usuario> usuarioOpt = repository.findByCorreo(request.getCorreo());
         if (usuarioOpt.isEmpty()) {
+            System.out.println("Usuario no encontrado");
             throw new IllegalArgumentException("Credenciales inválidas");
         }
 
         Usuario usuario = usuarioOpt.get();
+        System.out.println("Encontrado usuario. Contrasena almacenada: " + usuario.getContrasena());
 
-        if (!contrasena.equals(usuario.getContrasena())) {
+        // Si usas contraseñas sin hash (temporal):
+        if (!request.getContrasena().equals(usuario.getContrasena())) {
+            System.out.println("Contrasena NO coincide: enviado=" + request.getContrasena());
             throw new IllegalArgumentException("Credenciales inválidas");
         }
 
