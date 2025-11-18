@@ -23,8 +23,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired TokenBlacklistService tokenBlacklistService;
 
     private static final List<String> PUBLIC_PATHS = List.of(
-        "/api/especies",
-        "/api/especies/",
         "/api/observaciones",
         "/api/observaciones/",
         "/api/ubicaciones",
