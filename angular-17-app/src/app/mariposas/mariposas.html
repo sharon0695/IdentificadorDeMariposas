@@ -2,16 +2,42 @@
 
   <!-- COLUMNA IZQUIERDA: Datos -->
   <aside class="left-panel">
+
     <h3>Datos</h3>
 
     <div class="dato"><strong>ID:</strong> {{ especieSeleccionada?.id || '—' }}</div>
     <div class="dato"><strong>Nombre:</strong> {{ especieSeleccionada?.nombreComun || '—' }}</div>
     <div class="dato"><strong>Científico:</strong> {{ especieSeleccionada?.nombreCientifico || '—' }}</div>
+
+    <!-- Observación rápida -->
     <div class="dato"><strong>Observaciones:</strong></div>
     <textarea [(ngModel)]="observacion" class="obs-box"></textarea>
 
-    <button class="btn-api" (click)="verMapa()">Ver Mapa (API)</button>
+    <!-- Navegación a otros componentes -->
+    <button class="btn-nav"
+            [disabled]="!especieSeleccionada"
+            (click)="irADetalle()">
+      Ver Detalles
+    </button>
+
+    <button class="btn-nav"
+            [disabled]="!especieSeleccionada"
+            (click)="irAImagenes()">
+      Ver Imágenes
+    </button>
+
+    <button class="btn-nav"
+            (click)="irAObservaciones()">
+      Ver Observaciones
+    </button>
+
+    <button class="btn-nav"
+            (click)="irAMapa()">
+      Ver Mapa
+    </button>
+
   </aside>
+
 
   <!-- ZONA CENTRAL: Imagen grande -->
   <section class="center-panel">
@@ -19,22 +45,19 @@
     <div class="img-container">
       <button class="arrow left" (click)="anterior()">&lt;</button>
 
-      <!-- Imagen seleccionada -->
-      <img
-        [src]="especieSeleccionada?.imagenes?.length
-                ? especieSeleccionada!.imagenes[imgIndex]
-                : 'assets/default-mariposa.png'"
+      <img 
+        [src]="getImagenActual()" 
         alt="mariposa">
 
       <button class="arrow right" (click)="siguiente()">&gt;</button>
     </div>
 
-    <!-- Botón identificar -->
     <button class="btn-identificar" (click)="identificar()">
       Identificar
     </button>
 
   </section>
+
 
   <!-- COLUMNA DERECHA: Buscador + lista -->
   <aside class="right-panel">
@@ -50,11 +73,15 @@
 
     <!-- Lista -->
     <div class="lista">
-      <div class="item"
-           *ngFor="let esp of mariposasFiltradas"
-           (click)="seleccionar(esp)">
-        {{ esp.nombreComun }}
+      <div *ngFor="let especie of especies" (click)="seleccionar(especie)">
+        {{ especie.nombreComun }}
       </div>
+
+      <app-detalle-especie
+        *ngIf="especieSeleccionada"
+        [especie]="especieSeleccionada">
+      </app-detalle-especie>
+
     </div>
 
   </aside>

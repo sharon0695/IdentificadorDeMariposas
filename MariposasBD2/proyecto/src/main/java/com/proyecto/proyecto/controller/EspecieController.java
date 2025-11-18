@@ -25,7 +25,7 @@ public class EspecieController {
 
     @Autowired IEspecieService especieService;
 
-    @GetMapping
+    @GetMapping("/listar")
     public List<Especie> getAll() {
         return especieService.findAll();
     }

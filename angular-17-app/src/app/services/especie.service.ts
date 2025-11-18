@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 export interface Especie {
   id?: string;
-  nombreCientifico?: string;
-  nombreComun?: string;
+  nombreCientifico: string;
+  nombreComun: string;
   familia?: string;
   tipoEspecie?: string;
   descripcion?: string;
@@ -19,12 +19,12 @@ export interface Especie {
     cabeza?: string;
   };
   caracteristicasMorfo?: {
-    color?: string[];
-    tamanoAlasCm?: number;
+    color?: string;
+    tamanoAlas?: number;
     formaAntenas?: string;
   };
   ubicacionRecoleccion?: string;
-  fechaRegistro?: string;
+  fechaRegistro?: Date;
   registradoPor?: string;
 }
 
@@ -33,39 +33,66 @@ export interface Especie {
 })
 export class EspecieService {
 
-  // Ajusta la URL base si tu backend corre en otra parte
-  private baseUrl = 'http://localhost:8080/api/especies';
+  private apiUrl = 'http://localhost:8180/api/especies';
 
   constructor(private http: HttpClient) {}
 
+  /** Transformar MongoDB → Angular */
+  private mapEspecie(e: any): Especie {
+    return {
+      id: e._id || e.id,
+      nombreCientifico: e.nombreCientifico,
+      nombreComun: e.nombreComun,
+      familia: e.familia,
+      tipoEspecie: e.tipoEspecie,
+      descripcion: e.descripcion,
+      imagenes: e.imagenes,
+      imagenesDetalladas: e.imagenesDetalladas,
+      caracteristicasMorfo: e.caracteristicasMorfo,
+      ubicacionRecoleccion: e.ubicacionRecoleccion,
+      fechaRegistro: e.fechaRegistro,
+      registradoPor: e.registradoPor
+    };
+  }
+
+  /** Obtener todas */
   getEspecies(): Observable<Especie[]> {
-    return this.http.get<Especie[]>(this.baseUrl);
+    return this.http.get<any[]>(`${this.apiUrl}/listar`)
+      .pipe(map(list => list.map(e => this.mapEspecie(e))));
   }
 
+  /** Obtener por ID */
   getEspecie(id: string): Observable<Especie> {
-    return this.http.get<Especie>(`${this.baseUrl}/${id}`);
+    return this.http.get<any>(`${this.apiUrl}/${id}`)
+      .pipe(map(e => this.mapEspecie(e)));
   }
 
-  createEspecie(payload: Partial<Especie>) {
-    return this.http.post<Especie>(this.baseUrl, payload);
+  /** Crear */
+  createEspecie(especie: Especie): Observable<Especie> {
+    return this.http.post<any>(this.apiUrl, especie)
+      .pipe(map(e => this.mapEspecie(e)));
   }
 
-  updateEspecie(id: string, payload: Partial<Especie>) {
-    return this.http.put<Especie>(`${this.baseUrl}/${id}`, payload);
+  /** Eliminar */
+  deleteEspecie(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  deleteEspecie(id: string) {
-    return this.http.delete(`${this.baseUrl}/${id}`);
+  /** Agregar imagen general */
+  agregarImagenGeneral(id: string, urlImagen: string): Observable<any> {
+    const params = { url: urlImagen };
+    return this.http.post(`${this.apiUrl}/${id}/imagen-general`, null, { params });
   }
 
-  // Endpoints que definimos en el backend para agregar imágenes (URL)
-  agregarImagenGeneral(id: string, url: string) {
-    // POST /api/especies/{id}/imagen-general?url=...
-    return this.http.post(`${this.baseUrl}/${id}/imagen-general`, null, { params: { url } });
+  /** Agregar imagen detallada */
+  agregarImagenDetallada(id: string, parte: string, urlImagen: string): Observable<any> {
+    const params = { parte, url: urlImagen };
+    return this.http.post(`${this.apiUrl}/${id}/imagen-detallada`, null, { params });
   }
 
-  agregarImagenDetallada(id: string, parte: string, url: string) {
-    // POST /api/especies/{id}/imagen-detallada?parte=...&url=...
-    return this.http.post(`${this.baseUrl}/${id}/imagen-detallada`, null, { params: { parte, url } });
+  actualizarUbicacion(id: string, ubicacion: string) {
+    return this.http.patch(`${this.apiUrl}/${id}`, {
+      ubicacionRecoleccion: ubicacion
+    });
   }
 }

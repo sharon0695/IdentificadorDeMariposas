@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class MariposasService {
 
-  private apiUrl = 'http://localhost:8080/api/especies';
+  private apiUrl = 'http://localhost:8180/api/especies';
 
   constructor(private http: HttpClient) { }
 

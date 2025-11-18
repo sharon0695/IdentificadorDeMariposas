@@ -1,0 +1,36 @@
+<div *ngIf="especie" class="detalle-container">
+
+  <h2>{{ especie.nombreComun }}</h2>
+  <h4><i>{{ especie.nombreCientifico }}</i></h4>
+
+  <!-- Imagen principal -->
+  <img 
+    *ngIf="especie.imagenes?.length; else noPhoto"
+    class="img-principal"
+    [src]="especie.imagenes?.[0]"
+  />
+
+  <ng-template #noPhoto>
+    <img class="img-principal" src="assets/default-mariposa.png">
+  </ng-template>
+
+  <p><strong>Descripción:</strong> {{ especie.descripcion }}</p>
+  <p><strong>Familia:</strong> {{ especie.familia }}</p>
+  <p><strong>Tipo:</strong> {{ especie.tipoEspecie }}</p>
+
+  <div class="bloque">
+    <h3>Características Morfológicas</h3>
+    <p><strong>Color:</strong> {{ especie.caracteristicasMorfo?.color }}</p>
+    <p><strong>Tamaño Alas:</strong> {{ especie.caracteristicasMorfo?.tamanoAlas }}</p>
+    <p><strong>Forma Antenas:</strong> {{ especie.caracteristicasMorfo?.formaAntenas }}</p>
+  </div>
+
+  <div class="bloque">
+    <h3>Imágenes Detalladas</h3>
+    <img *ngIf="especie.imagenesDetalladas?.alaIzquierda" [src]="especie.imagenesDetalladas?.alaIzquierda">
+    <img *ngIf="especie.imagenesDetalladas?.alaDerecha" [src]="especie.imagenesDetalladas?.alaDerecha">
+    <img *ngIf="especie.imagenesDetalladas?.antenas" [src]="especie.imagenesDetalladas?.antenas">
+    <img *ngIf="especie.imagenesDetalladas?.cuerpo" [src]="especie.imagenesDetalladas?.cuerpo">
+  </div>
+
+</div>

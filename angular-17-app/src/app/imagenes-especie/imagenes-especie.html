@@ -1,0 +1,13 @@
+<h2>Agregar Imágenes</h2>
+
+<label>ID de la especie</label>
+<input [(ngModel)]="id">
+
+<h3>Imagen General</h3>
+<input [(ngModel)]="url" placeholder="URL imagen">
+<button (click)="agregarGeneral()">Agregar imagen general</button>
+
+<h3>Imagen Detallada</h3>
+<input [(ngModel)]="parte" placeholder="Parte (alaIzquierda, cabeza...)">
+<input [(ngModel)]="url" placeholder="URL imagen">
+<button (click)="agregarDetallada()">Agregar imagen detallada</button>

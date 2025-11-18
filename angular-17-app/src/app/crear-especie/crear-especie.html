@@ -1,0 +1,22 @@
+<h2>Registrar Nueva Especie</h2>
+
+<div class="formulario">
+  <label>Nombre común</label>
+  <input [(ngModel)]="especie.nombreComun">
+
+  <label>Nombre científico</label>
+  <input [(ngModel)]="especie.nombreCientifico">
+
+  <label>Familia</label>
+  <input [(ngModel)]="especie.familia">
+
+  <label>Tipo de especie</label>
+  <input [(ngModel)]="especie.tipoEspecie">
+
+  <label>Descripción</label>
+  <textarea [(ngModel)]="especie.descripcion"></textarea>
+
+  <button (click)="guardar()" class="btn-save">
+    Guardar
+  </button>
+</div>
