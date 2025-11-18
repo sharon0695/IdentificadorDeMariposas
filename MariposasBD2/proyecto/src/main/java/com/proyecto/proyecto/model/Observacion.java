@@ -3,7 +3,9 @@ import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 @Document(collection = "observaciones")
 public class Observacion {
     @Id

@@ -1,12 +1,14 @@
 package com.proyecto.proyecto.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -62,5 +64,13 @@ public class EspecieController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {
         especieService.delete(id);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> actualizarUbicacion(@PathVariable String id,
+                                                @RequestBody Map<String, String> body) {
+        String ubic = body.get("ubicacionRecoleccion");
+        especieService.actualizarUbicacion(id, ubic);
+        return ResponseEntity.ok("Ubicación actualizada");
     }
 }

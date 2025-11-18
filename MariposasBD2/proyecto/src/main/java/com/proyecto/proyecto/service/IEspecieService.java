@@ -12,4 +12,5 @@ public interface IEspecieService {
     void delete(String id);
     void agregarImagenGeneral(String idEspecie, String urlImagen);
     void agregarImagenDetallada(String idEspecie, String parte, String url);
+    void actualizarUbicacion(String id, String ubic);
 }

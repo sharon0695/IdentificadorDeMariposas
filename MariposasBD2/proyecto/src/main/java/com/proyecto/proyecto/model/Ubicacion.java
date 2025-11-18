@@ -2,7 +2,9 @@ package com.proyecto.proyecto.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 @Document(collection = "ubicaciones")
 public class Ubicacion {
     @Id

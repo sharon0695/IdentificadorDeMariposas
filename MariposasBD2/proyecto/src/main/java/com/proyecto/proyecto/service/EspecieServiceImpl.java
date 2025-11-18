@@ -66,6 +66,15 @@ public class EspecieServiceImpl implements IEspecieService {
     }
 
     @Override
+    public void actualizarUbicacion(String id, String ubic) {
+        Especie esp = especieRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Especie no encontrada"));
+
+        esp.setUbicacionRecoleccion(ubic);
+        especieRepository.save(esp);
+    }
+
+    @Override
     public void delete(String id) {
         especieRepository.deleteById(id);
     }
