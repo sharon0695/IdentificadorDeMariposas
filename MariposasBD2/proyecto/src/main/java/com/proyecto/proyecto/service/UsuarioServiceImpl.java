@@ -1,10 +1,10 @@
 package com.proyecto.proyecto.service;
 
-import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.proyecto.proyecto.DTO.LoginRequest;
 import com.proyecto.proyecto.DTO.LoginResponse;
@@ -59,6 +59,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
             token,
             "Bearer",
             jwtUtil.getExpirationMillis(),
+            usuario.getId(),
             usuario.getNombre(),
             usuario.getCorreo(),
             usuario.getRol()

@@ -18,8 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.proyecto.proyecto.repository.IUsuarioRepository;
 import com.proyecto.proyecto.Security.JwtAuthenticationFilter;
+import com.proyecto.proyecto.repository.IUsuarioRepository;
 
 @Configuration
 @EnableMethodSecurity
@@ -32,11 +32,13 @@ public class SecurityConfig {
 
         http
         .cors(Customizer.withDefaults())
-        .csrf(csrf -> csrf.disable()) // deshabilitar CSRF (necesario para Angular/React)
+        .csrf(csrf -> csrf.disable())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .requestMatchers("/api/usuarios/login", "/api/usuarios/**").permitAll() // permitir login
+                .requestMatchers(
+                "/api/usuarios/login", 
+                "/api/usuarios/**").permitAll() // permitir login
                 .anyRequest().authenticated() // lo demás requiere token
             );
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
