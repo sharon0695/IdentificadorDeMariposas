@@ -1,7 +1,10 @@
-<div class="app-container">
+<div class="container-fluid vh-100 d-flex flex-column p-3 main-container">
 
-  <div class="top-bar">
-    <button class="btn-logout" (click)="logout()">Salir</button>
+  <!-- Barra Superior -->
+  <div class="row mb-3">
+    <div class="col-12 d-flex justify-content-end">
+      <button class="btn btn-circular btn-danger" (click)="logout()">Salir</button>
+    </div>
   </div>
 
   <aside class="left-panel">
@@ -57,7 +60,6 @@
       <button class="btn-nav" (click)="guardarObservacion()">Guardar</button>
     </div>
     <button class="btn-nav" [disabled]="!especieSeleccionada" (click)="irAImagenes()">Ver Imágenes</button>
-    <button class="btn-nav" (click)="irAObservaciones()">Ver Observaciones</button>
     <button class="btn-nav" (click)="irAMapa()">Ver Mapa</button>
   </aside>
 
@@ -70,27 +72,6 @@
         (input)="filtrar()"
         placeholder="Buscar especie...">
     </div>
-
-    <!-- Imagen + flechas -->
-    <div class="img-container">
-      <button class="arrow left" (click)="anterior()">&lt;</button>
-      <img [src]="getImagenActual()" alt="mariposa">
-      <button class="arrow right" (click)="siguiente()">&gt;</button>
-    </div>
-
-    <button class="btn-identificar" (click)="identificar()">
-      Identificar
-    </button>
-
-  </section>
-
-  <aside class="right-panel">
-    <div class="lista">
-      <app-detalle-especie
-        *ngIf="especieSeleccionada"
-        [especie]="especieSeleccionada">
-      </app-detalle-especie>
-    </div>
-  </aside>
+  </div>
 
 </div>

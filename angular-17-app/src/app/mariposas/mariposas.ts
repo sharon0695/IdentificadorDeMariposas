@@ -110,11 +110,25 @@ export class Mariposas {
   }
 
   irAMapa() {
-    this.router.navigate(['/mapa'], {
-      queryParams: {
-        especieId: this.especieSeleccionada?.id || null
-      }
-    });
+    if (!this.especieSeleccionada) {
+      alert('Por favor, selecciona una especie para ver su ubicación en el mapa.');
+      return;
+    }
+
+    if (!this.especieSeleccionada.ubicacionRecoleccion) {
+      alert('Esta especie no tiene una ubicación de recolección registrada.');
+      return;
+    }
+
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['/mapa'], {
+        queryParams: {
+          especieId: this.especieSeleccionada?.id || null,
+          departamento: this.especieSeleccionada.ubicacionRecoleccion
+        }
+      })
+    );
+    window.open(url, '_blank');
   }
 
   ngOnChanges() {

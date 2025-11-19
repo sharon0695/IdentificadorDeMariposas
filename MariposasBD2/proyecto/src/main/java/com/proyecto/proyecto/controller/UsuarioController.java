@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.proyecto.DTO.LoginRequest;
 import com.proyecto.proyecto.DTO.LoginResponse;
+import com.proyecto.proyecto.DTO.RegistroRequest;
+import com.proyecto.proyecto.DTO.RegistroResponse;
 import com.proyecto.proyecto.model.Usuario;
 import com.proyecto.proyecto.service.IUsuarioService;
 
@@ -26,10 +28,32 @@ public class UsuarioController {
 
     @Autowired IUsuarioService service;
 
-    @PostMapping("/crear")
-    public Usuario crear(@RequestBody Usuario usuario) {
-        return service.guardar(usuario);
+@PostMapping("/crear")
+public ResponseEntity<?> crear(@RequestBody RegistroRequest request) {
+    try {
+        Usuario usuario = new Usuario();
+        usuario.setNombre(request.getNombre());
+        usuario.setCorreo(request.getCorreo());
+        usuario.setContrasena(request.getContrasena());
+
+        Usuario guardado = service.guardar(usuario);
+
+        RegistroResponse response = new RegistroResponse(
+            guardado.getId(),
+            guardado.getNombre(),
+            guardado.getCorreo(),
+            guardado.getRol(),
+            "Usuario registrado exitosamente"
+        );
+
+        return ResponseEntity.ok(response);
+
+    } catch (Exception e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
+}
+
+
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
