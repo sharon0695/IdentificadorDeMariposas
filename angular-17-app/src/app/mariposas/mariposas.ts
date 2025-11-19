@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { DetalleEspecie } from '../detalle-especie/detalle-especie';
 import { EspecieService, Especie } from '../services/especie.service';
 import { AuthService } from '../services/auth.service';
+import { UbicacionService } from '../services/ubicacion.service';
 import { Observacion, ObservacionesService } from '../services/observaciones.service';
 
 @Component({
@@ -30,8 +31,14 @@ export class Mariposas {
   userRole: string | null = null;
   backendUrl: string = 'http://localhost:8180';
 
-  constructor(protected auth: AuthService, private router: Router, private especiesService: EspecieService, private observacionesService: ObservacionesService) {}
-
+    constructor(
+    protected auth: AuthService,
+    private router: Router,
+    private especiesService: EspecieService,
+    private observacionesService: ObservacionesService,
+    private ubicacionService: UbicacionService // Inyectar UbicacionService
+  ) {}
+  
   ngOnInit() {
     this.userRole = this.auth.getUserRole();
     this.especiesService.getEspecies().subscribe({
@@ -82,8 +89,18 @@ export class Mariposas {
   }
 
   seleccionar(esp: Especie) {
+    console.log('Datos completos de la especie seleccionada:', esp);
     this.especieSeleccionada = esp;
     this.imgIndex = 0;
+
+    if (esp.ubicacionRecoleccion) {
+      this.ubicacionService.getUbicacion(esp.ubicacionRecoleccion).subscribe({
+        next: (ubicacion) => {
+          console.log('Datos de la ubicación:', ubicacion);
+        },
+        error: (err) => console.error('Error al obtener la ubicación:', err),
+      });
+    }
 
     if (esp.id) {
       this.observacionesService.listarPorEspecie(esp.id).subscribe({
