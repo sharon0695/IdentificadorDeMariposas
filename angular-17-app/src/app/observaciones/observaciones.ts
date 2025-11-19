@@ -1,37 +1,67 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ObservacionesService, Observacion } from '../services/observaciones.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-observaciones',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './observaciones.html',
   styleUrl: './observaciones.css',
 })
 export class Observaciones {
+
+  especieId: string = "";
   observaciones: Observacion[] = [];
+
   nueva: Observacion = {
-    especieId: '',
-    usuarioId: '',
-    comentario: ''
+    especieId: "",
+    usuarioId: "",
+    comentario: ""
   };
 
-  constructor(private service: ObservacionesService) {}
+  constructor(
+    private route: ActivatedRoute, 
+    private service: ObservacionesService,
+    private auth: AuthService
+  ) {}
 
   ngOnInit() {
+    this.especieId = this.route.snapshot.queryParamMap.get('especieId') || "";
+
+    const uid = this.auth.getUserId();
+    if (!uid) {
+      alert("No hay usuario autenticado");
+      return;
+    }
+    this.nueva.usuarioId = uid;
     this.listar();
   }
 
   listar() {
-    this.service.listarObservaciones().subscribe(resp => this.observaciones = resp);
+    if (!this.especieId) return;
+
+    this.service.listarPorEspecie(this.especieId)
+      .subscribe(resp => this.observaciones = resp);
   }
 
   guardar() {
+    const uid = this.auth.getUserId();
+    if (!uid) {
+      alert('No hay usuario autenticado');
+      return;
+    }
+
+    this.nueva.usuarioId = uid;
+    this.nueva.especieId = this.especieId;
     this.nueva.fecha = new Date();
+
     this.service.crearObservacion(this.nueva).subscribe(() => {
       alert('Observación registrada');
-      this.nueva = { especieId: '', usuarioId: '', comentario: '' };
+      this.nueva.comentario = '';
       this.listar();
     });
   }

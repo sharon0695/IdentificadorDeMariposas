@@ -37,12 +37,26 @@
     <div class="dato"><strong>Nombre:</strong> {{ especieSeleccionada?.nombreComun || '—' }}</div>
     <div class="dato"><strong>Científico:</strong> {{ especieSeleccionada?.nombreCientifico || '—' }}</div>
 
-    <div class="dato"><strong>Observaciones:</strong></div>
-    <textarea [(ngModel)]="observacion" class="obs-box"></textarea>
+    <div class="dato">
+      <strong>Observaciones:</strong>
+    </div>
 
-    <button class="btn-nav" [disabled]="!especieSeleccionada" (click)="irADetalle()">Ver Detalles</button>
+    <!-- LISTA DE OBSERVACIONES -->
+    <div class="obs-list">
+      <div *ngFor="let o of observaciones" class="obs-item">
+        <strong>{{ o.usuarioId }}:</strong>
+        <p>{{ o.comentario }}</p>
+        <small>{{ o.fecha | date:'short' }}</small>
+        <hr>
+      </div>
+    </div>
+
+    <!-- AGREGAR NUEVA -->
+    <div class="nueva-obs">
+      <textarea [(ngModel)]="nuevaObservacion" placeholder="Agregar observación..."></textarea>
+      <button class="btn-nav" (click)="guardarObservacion()">Guardar</button>
+    </div>
     <button class="btn-nav" [disabled]="!especieSeleccionada" (click)="irAImagenes()">Ver Imágenes</button>
-    <button class="btn-nav" (click)="irAObservaciones()">Ver Observaciones</button>
     <button class="btn-nav" (click)="irAMapa()">Ver Mapa</button>
   </aside>
 

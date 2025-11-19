@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.proyecto.model.Observacion;
+import com.proyecto.proyecto.repository.IObservacionRepository;
 import com.proyecto.proyecto.service.IObservacionService;
 
 @RestController
@@ -19,6 +20,7 @@ import com.proyecto.proyecto.service.IObservacionService;
 public class ObservacionController {
 
     @Autowired IObservacionService service;
+    @Autowired IObservacionRepository observacionRepository;
 
     @PostMapping
     public Observacion crear(@RequestBody Observacion observacion) {
@@ -28,6 +30,11 @@ public class ObservacionController {
     @GetMapping
     public List<Observacion> listar() {
         return service.listar();
+    }
+
+    @GetMapping("/especie/{id}")
+    public List<Observacion> listarPorEspecie(@PathVariable String id) {
+        return observacionRepository.findByEspecieId(id);
     }
 
     @GetMapping("/{id}")
