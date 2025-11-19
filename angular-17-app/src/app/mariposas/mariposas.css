@@ -7,6 +7,35 @@
   gap: 10px;
   padding: 10px;
 }
+.lista-especies {
+  max-height: 250px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.item-especie {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 4px;
+  background: #f2f2f2;
+  margin-bottom: 5px;
+  border-radius: 6px;
+}
+
+.btn-ver {
+  background: #3f51b5;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-ver:hover {
+  background: #283593;
+}
+
 
 /* --- PANEL IZQUIERDO --- */
 .left-panel {

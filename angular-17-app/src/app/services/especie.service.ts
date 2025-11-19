@@ -4,7 +4,7 @@ import { map, Observable } from 'rxjs';
 
 export interface Especie {
   id?: string;
-  nombreCientifico: string;
+  nombreCientifico?: string;
   nombreComun: string;
   familia?: string;
   tipoEspecie?: string;
@@ -57,6 +57,7 @@ export class EspecieService {
 
   /** Obtener todas */
   getEspecies(): Observable<Especie[]> {
+    console.log('%c[SERVICE] Llamando a /api/especies/listar', 'color: blue;');
     return this.http.get<any[]>(`${this.apiUrl}/listar`)
       .pipe(map(list => list.map(e => this.mapEspecie(e))));
   }

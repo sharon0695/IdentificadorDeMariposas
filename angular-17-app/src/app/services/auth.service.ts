@@ -86,7 +86,7 @@ export class AuthService {
       tap((res) => {
         if (!this.isBrowser) return;
 
-        const token = `${res.tokenType} ${res.accessToken}`;
+        const token = `${res.accessToken}`;
         this.lsSet(this.storageKey, token);
 
         const expiresAt = Date.now() + (res.expiresInMillis || 0);

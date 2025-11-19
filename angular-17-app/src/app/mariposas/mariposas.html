@@ -1,8 +1,29 @@
 <div class="app-container">
 
-  <!-- COLUMNA IZQUIERDA: Datos -->
+  <!-- COLUMNA IZQUIERDA: Lista + Detalle -->
   <aside class="left-panel">
 
+    <h3>Especies</h3>
+
+    <!-- LISTA DE ESPECIES CON BOTÓN VER -->
+    <div class="lista-especies">
+
+      <div *ngFor="let especie of especies" class="item-especie">
+
+        <span>{{ especie.nombreComun }}</span>
+
+        <button class="btn-ver"
+                (click)="seleccionar(especie)">
+          Ver
+        </button>
+
+      </div>
+
+    </div>
+
+    <hr>
+
+    <!-- DETALLES DE LA ESPECIE SELECCIONADA -->
     <h3>Datos</h3>
 
     <div class="dato"><strong>ID:</strong> {{ especieSeleccionada?.id || '—' }}</div>
@@ -39,7 +60,7 @@
   </aside>
 
 
-  <!-- ZONA CENTRAL: Imagen grande -->
+  <!-- ZONA CENTRAL — se mantiene igual -->
   <section class="center-panel">
 
     <div class="img-container">
@@ -59,10 +80,9 @@
   </section>
 
 
-  <!-- COLUMNA DERECHA: Buscador + lista -->
+  <!-- COLUMNA DERECHA — se mantiene igual -->
   <aside class="right-panel">
 
-    <!-- Buscador -->
     <div class="search-box">
       <input type="text"
              placeholder="Buscar especie..."
@@ -71,7 +91,6 @@
       <button class="btn-logout" (click)="logout()">Salir</button>
     </div>
 
-    <!-- Lista -->
     <div class="lista">
       <div *ngFor="let especie of especies" (click)="seleccionar(especie)">
         {{ especie.nombreComun }}

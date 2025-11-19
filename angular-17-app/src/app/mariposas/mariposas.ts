@@ -87,7 +87,7 @@ export class Mariposas {
     const texto = this.busqueda.toLowerCase();
     this.especiesFiltradas = this.especies.filter(e =>
     e.nombreComun.toLowerCase().includes(texto) ||
-    e.nombreCientifico.toLowerCase().includes(texto)
+    e.nombreCientifico?.toLowerCase().includes(texto)
     );
   }
 
