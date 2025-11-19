@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SingUp } from './sing-up';
 
 describe('SingUp', () => {
@@ -9,8 +8,7 @@ describe('SingUp', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SingUp]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SingUp);
     component = fixture.componentInstance;

@@ -7,6 +7,8 @@ import { Observaciones } from './observaciones/observaciones';
 import { MapaEspecies } from './mapa-especies/mapa-especies';
 
 
+
+
 export const routes: Routes = [
     {path: '', component: Login},
     {path: 'login', component: Login},
@@ -16,4 +18,7 @@ export const routes: Routes = [
     { path: 'observaciones', component: Observaciones },
     { path: 'mapa', component: MapaEspecies },
     { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: 'login', component: Login },
+    { path: 'sing-up', component: SingUp },
 ];

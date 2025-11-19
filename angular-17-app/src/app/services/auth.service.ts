@@ -9,6 +9,12 @@ export interface LoginRequest {
   contrasena: string;
 }
 
+export interface RegistroRequest {
+  nombre: string;
+  correo: string;
+  contrasena: string;
+}
+
 export interface LoginResponse {
   accessToken: string;
   tokenType: string;
@@ -59,6 +65,8 @@ export class AuthService {
   // Métodos de usuario
   // =============================
 
+  
+
   getUserRaw(): any | null {
     if (!this.isBrowser) return null;
     try {
@@ -105,6 +113,11 @@ export class AuthService {
       })
     );
   }
+
+  registrar(body: RegistroRequest): Observable<any> {
+  return this.http.post<any>(`${this.baseUrl}/crear`, body);
+  }
+
 
   logout(showMessage: boolean = false): void {
     if (!this.isBrowser) return;
