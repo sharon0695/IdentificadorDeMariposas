@@ -86,12 +86,19 @@ export class Mariposas {
   }
 
   filtrar(): void {
-    const texto = this.busqueda.toLowerCase();
-    this.especiesFiltradas = this.especies.filter(e =>
-    e.nombreComun.toLowerCase().includes(texto) ||
-    e.nombreCientifico?.toLowerCase().includes(texto)
-    );
+  const texto = this.busqueda.trim().toLowerCase();
+
+  if (!texto) {
+    this.especiesFiltradas = [...this.especies];
+    return;
   }
+
+  this.especiesFiltradas = this.especies.filter(e =>
+    (e.nombreComun ?? '').toLowerCase().includes(texto) ||
+    (e.nombreCientifico ?? '').toLowerCase().includes(texto)
+  );
+}
+
 
   identificar() {
     alert("Función de identificación ejecutada. (Aquí pones tu lógica)");
@@ -129,7 +136,7 @@ export class Mariposas {
 
   getImagenActual(): string {
   if (!this.especieSeleccionada || !this.especieSeleccionada.imagenes) {
-    return 'assets/default-mariposa.png';
+    return 'No hay imagenes de la especie';
   }
   return this.especieSeleccionada.imagenes[this.imgIndex] || 'assets/default-mariposa.png';
 }

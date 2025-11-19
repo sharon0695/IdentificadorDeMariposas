@@ -17,7 +17,7 @@
     </button>
 
     <div class="lista-especies">
-      <div *ngFor="let especie of especies" class="item-especie">
+      <div *ngFor="let especie of especiesFiltradas" class="item-especie">
         <span>{{ especie.nombreComun }}</span>
         <button class="btn-ver" (click)="seleccionar(especie)">Ver</button>
       </div>
@@ -46,11 +46,10 @@
     <!-- 🔵 NUEVA BARRA DE BÚSQUEDA AQUI -->
     <div class="search-box">
       <input 
-        type="text" 
-        placeholder="Buscar especie..."
-        [(ngModel)]="busqueda">
-      
-      <button class="btn-buscar" (click)="buscar()">Buscar</button>
+        type="text"
+        [(ngModel)]="busqueda"
+        (input)="filtrar()"
+        placeholder="Buscar especie...">
     </div>
 
     <!-- Imagen + flechas -->

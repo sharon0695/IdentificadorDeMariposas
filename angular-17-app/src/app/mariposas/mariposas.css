@@ -19,8 +19,10 @@
   display: flex;
   flex-direction: column;
   gap: 18px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  height: calc(110vh - 90px); 
+  overflow: hidden;           
 }
+
 
 .left-panel h3 {
   font-size: 22px;
@@ -125,8 +127,7 @@
 ======================================================== */
 .top-bar {
   grid-column: span 3;
-  background: #e8edf0;
-  padding: 10px 20px;
+  background: #f3f5f7;
   border-radius: 12px;
   display: flex;
   justify-content: flex-end;
@@ -147,7 +148,7 @@
   gap: 10px;
   justify-content: center;
   margin-bottom: 150px;
-  margin-top: -400px;
+  margin-top: -250px;
 }
 
 .search-box input {
@@ -159,14 +160,14 @@
 
 .search-box .btn-buscar {
   padding: 10px 14px;
-  background: #3498db;
+  background: #661697;
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
 }
 .search-box .btn-buscar:hover {
-  background: #2b7fb9;
+  background: #b358bb;
 }
 
 
@@ -242,5 +243,7 @@
   padding: 20px;
   border-radius: 16px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+
+  height: calc(100vh - 90px);
   overflow-y: auto;
 }

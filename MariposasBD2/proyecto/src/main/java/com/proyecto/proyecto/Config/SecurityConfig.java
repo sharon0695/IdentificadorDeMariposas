@@ -38,8 +38,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers(
                 "/api/usuarios/login", 
-                "/api/usuarios/**").permitAll() // permitir login
-                .anyRequest().authenticated() // lo demás requiere token
+                "/api/usuarios/**").permitAll() 
+                .anyRequest().authenticated() 
             );
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
