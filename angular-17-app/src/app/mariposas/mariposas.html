@@ -1,11 +1,9 @@
 <div class="app-container">
 
-  <!-- 🔴 BARRA SUPERIOR SOLO CON SALIR -->
   <div class="top-bar">
     <button class="btn-logout" (click)="logout()">Salir</button>
   </div>
 
-  <!-- 🟣 COLUMNA IZQUIERDA -->
   <aside class="left-panel">
     <h3>Especies</h3>
 
@@ -19,7 +17,15 @@
     <div class="lista-especies">
       <div *ngFor="let especie of especiesFiltradas" class="item-especie">
         <span>{{ especie.nombreComun }}</span>
+        <div class="acciones">
         <button class="btn-ver" (click)="seleccionar(especie)">Ver</button>
+        <button 
+          *ngIf="userRole === 'administrador'"
+          class="btn-eliminar"
+          (click)="eliminarEspecie(especie.id)">
+          🗑
+        </button>
+        </div>
       </div>
     </div>
 
@@ -31,19 +37,31 @@
     <div class="dato"><strong>Nombre:</strong> {{ especieSeleccionada?.nombreComun || '—' }}</div>
     <div class="dato"><strong>Científico:</strong> {{ especieSeleccionada?.nombreCientifico || '—' }}</div>
 
-    <div class="dato"><strong>Observaciones:</strong></div>
-    <textarea [(ngModel)]="observacion" class="obs-box"></textarea>
+    <div class="dato">
+      <strong>Observaciones:</strong>
+    </div>
 
-    <button class="btn-nav" [disabled]="!especieSeleccionada" (click)="irADetalle()">Ver Detalles</button>
+    <!-- LISTA DE OBSERVACIONES -->
+    <div class="obs-list">
+      <div *ngFor="let o of observaciones" class="obs-item">
+        <strong>{{ o.usuarioId }}:</strong>
+        <p>{{ o.comentario }}</p>
+        <small>{{ o.fecha | date:'short' }}</small>
+        <hr>
+      </div>
+    </div>
+
+    <!-- AGREGAR NUEVA -->
+    <div class="nueva-obs">
+      <textarea [(ngModel)]="nuevaObservacion" placeholder="Agregar observación..."></textarea>
+      <button class="btn-nav" (click)="guardarObservacion()">Guardar</button>
+    </div>
     <button class="btn-nav" [disabled]="!especieSeleccionada" (click)="irAImagenes()">Ver Imágenes</button>
-    <button class="btn-nav" (click)="irAObservaciones()">Ver Observaciones</button>
     <button class="btn-nav" (click)="irAMapa()">Ver Mapa</button>
   </aside>
 
-  <!-- 🟦 PANEL CENTRAL -->
   <section class="center-panel">
 
-    <!-- 🔵 NUEVA BARRA DE BÚSQUEDA AQUI -->
     <div class="search-box">
       <input 
         type="text"
@@ -65,7 +83,6 @@
 
   </section>
 
-  <!-- 🟩 COLUMNA DERECHA -->
   <aside class="right-panel">
     <div class="lista">
       <app-detalle-especie

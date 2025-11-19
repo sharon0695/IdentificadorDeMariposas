@@ -1,26 +1,22 @@
 <h2>Observaciones</h2>
 
-<div class="form">
-  <label>ID especie</label>
-  <input [(ngModel)]="nueva.especieId">
-
-  <label>ID usuario</label>
-  <input [(ngModel)]="nueva.usuarioId">
-
-  <label>Comentario</label>
-  <textarea [(ngModel)]="nueva.comentario"></textarea>
-
-  <button (click)="guardar()">Registrar</button>
+<div *ngIf="observaciones.length === 0">
+  <p>No hay observaciones para esta especie.</p>
 </div>
 
-<hr>
+<ul>
+  <li *ngFor="let obs of observaciones">
+    <strong>{{ obs.usuarioId }}</strong>  
+    <br>
+    {{ obs.comentario }}
+    <br>
+    <small>{{ obs.fecha | date:'short' }}</small>
+    <hr>
+  </li>
+</ul>
 
-<h3>Historial</h3>
-<div class="obs-lista">
-  <div *ngFor="let o of observaciones" class="card">
-    <p><strong>Especie:</strong> {{ o.especieId }}</p>
-    <p><strong>Usuario:</strong> {{ o.usuarioId }}</p>
-    <p>{{ o.comentario }}</p>
-    <small>{{ o.fecha | date:'short' }}</small>
-  </div>
-</div>
+<h3>Nueva observación</h3>
+
+<textarea [(ngModel)]="nueva.comentario" placeholder="Escribe tu observación..."></textarea>
+
+<button (click)="guardar()">Guardar</button>

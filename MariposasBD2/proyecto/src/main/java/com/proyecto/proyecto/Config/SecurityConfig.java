@@ -38,7 +38,9 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers(
                 "/api/usuarios/login", 
-                "/api/usuarios/**").permitAll() 
+                "/api/usuarios/**",
+                "/images/**",
+                "/static/**").permitAll() 
                 .anyRequest().authenticated() 
             );
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

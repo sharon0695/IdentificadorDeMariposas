@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { DetalleEspecie } from '../detalle-especie/detalle-especie';
 import { EspecieService, Especie } from '../services/especie.service';
 import { AuthService } from '../services/auth.service';
+import { Observacion, ObservacionesService } from '../services/observaciones.service';
 
 @Component({
   selector: 'app-mariposas',
@@ -15,19 +16,21 @@ import { AuthService } from '../services/auth.service';
 })
 export class Mariposas {
   busqueda: string = "";
-  observacion: string = "";
+  nuevaObservacion: string = "";
   mensaje: string = "";
   imgIndex: number = 0;
 
   especies: Especie[] = [];
   especiesFiltradas: Especie[] = [];
   especieSeleccionada: any = null;
+  observaciones: Observacion[] = [];
 
   cargando = false;
   error: string | null = null;
   userRole: string | null = null;
+  backendUrl: string = 'http://localhost:8180';
 
-  constructor(protected auth: AuthService, private router: Router, private especiesService: EspecieService) {}
+  constructor(protected auth: AuthService, private router: Router, private especiesService: EspecieService, private observacionesService: ObservacionesService) {}
 
   ngOnInit() {
     this.userRole = this.auth.getUserRole();
@@ -43,7 +46,33 @@ export class Mariposas {
     });
   }
 
+  guardarObservacion() {
+    const userId = this.auth.getUserId();
+    if (!userId) {
+      alert("Usuario no autenticado");
+      return;
+    }
 
+    if (!this.especieSeleccionada?.id) {
+      alert("Selecciona una especie primero");
+      return;
+    }
+
+    const data = {
+      comentario: this.nuevaObservacion,
+      usuarioId: userId,
+      especieId: this.especieSeleccionada.id,
+      fecha: new Date()
+    };
+
+    this.observacionesService.crearObservacion(data).subscribe({
+      next: () => {
+        this.nuevaObservacion = "";
+        this.seleccionar(this.especieSeleccionada); 
+      },
+      error: err => console.error(err)
+    });
+  }
 
   cargarEspecies(): void {
     this.especiesService.getEspecies().subscribe(data => {
@@ -55,6 +84,13 @@ export class Mariposas {
   seleccionar(esp: Especie) {
     this.especieSeleccionada = esp;
     this.imgIndex = 0;
+
+    if (esp.id) {
+      this.observacionesService.listarPorEspecie(esp.id).subscribe({
+        next: obs => this.observaciones = obs,
+        error: err => console.error(err)
+      });
+    }
   }
 
   irADetalle() {
@@ -104,8 +140,6 @@ export class Mariposas {
     alert("Función de identificación ejecutada. (Aquí pones tu lógica)");
   }
 
-  buscar(){}
-
   anterior() {
     if (!this.especieSeleccionada?.imagenes?.length) return;
     this.imgIndex = (this.imgIndex - 1 + this.especieSeleccionada.imagenes.length) % this.especieSeleccionada.imagenes.length;
@@ -119,6 +153,7 @@ export class Mariposas {
   crearEspecie() {
     this.router.navigate(['/crear-especie']);
   }
+
   agregarImagenGeneral(url: string) {
     if (!this.especieSeleccionada?.id) return alert('Selecciona una especie primero');
     this.especiesService.agregarImagenGeneral(this.especieSeleccionada.id, url).subscribe({
@@ -135,11 +170,14 @@ export class Mariposas {
   }
 
   getImagenActual(): string {
-  if (!this.especieSeleccionada || !this.especieSeleccionada.imagenes) {
-    return 'No hay imagenes de la especie';
+    if (!this.especieSeleccionada || !this.especieSeleccionada.imagenes) {
+      return this.backendUrl + "/images/default.png"; 
+    }
+
+    const img = this.especieSeleccionada.imagenes[this.imgIndex];
+    return this.backendUrl + "/" + img;
   }
-  return this.especieSeleccionada.imagenes[this.imgIndex] || 'assets/default-mariposa.png';
-}
+
 
   verMapa() {
     window.open('/mapa', '_blank');
@@ -160,13 +198,13 @@ export class Mariposas {
     });
   }
 
-  // Eliminar especie
   eliminarEspecie(id?: string) {
     if (!id) return;
     if (!confirm('¿Eliminar esta especie?')) return;
     this.especiesService.deleteEspecie(id).subscribe({
       next: () => {
         this.especies = this.especies.filter(e => e.id !== id);
+        this.filtrar(); 
       },
       error: (err) => {
         console.error(err);
@@ -174,4 +212,5 @@ export class Mariposas {
       }
     });
   }
+
 }

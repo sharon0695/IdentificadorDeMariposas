@@ -126,7 +126,7 @@ export class AuthService {
     return this.lsGet(this.storageKey);
   }
 
-  getUserId(): number | null {
+  getUserId(): string | null {
     if (!this.isBrowser) return null;
 
     try {

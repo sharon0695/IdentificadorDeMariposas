@@ -29,6 +29,11 @@ export class ObservacionesService {
     return this.http.get<Observacion[]>(this.apiUrl);
   }
 
+  /** Listar por especie */
+  listarPorEspecie(especieId: string): Observable<Observacion[]> {
+    return this.http.get<Observacion[]>(`${this.apiUrl}/especie/${especieId}`);
+  }
+
   /** Obtener por ID */
   obtenerPorId(id: string): Observable<Observacion> {
     return this.http.get<Observacion>(`${this.apiUrl}/${id}`);
