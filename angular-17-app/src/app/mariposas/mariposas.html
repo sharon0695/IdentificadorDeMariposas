@@ -33,9 +33,9 @@
                 <li class="list-group-item"><strong>ID:</strong> {{ especieSeleccionada?.id || '—' }}</li>
                 <li class="list-group-item"><strong>Nombre:</strong> {{ especieSeleccionada?.nombreComun || '—' }}</li>
                 <li class="list-group-item"><strong>Científico:</strong> {{ especieSeleccionada?.nombreCientifico || '—' }}</li>
-              </ul>
-                  <div class="dato"><strong>Observaciones:</strong></div>
-                    <textarea [(ngModel)]="observacion" class="obs-box"></textarea>
+              </ul>              
+              <div class="dato"><strong>Observaciones:</strong></div>
+              <textarea [(ngModel)]="nuevaObservacion" class="obs-box"></textarea>
               <div class="d-grid gap-2 mt-3">
                 <button class="btn btn-circular btn-secondary-custom" [disabled]="!especieSeleccionada" (click)="irADetalle()">Ver Detalles</button>
                 <button class="btn btn-circular btn-secondary-custom" [disabled]="!especieSeleccionada" (click)="irAImagenes()">Ver Imágenes</button>
@@ -78,72 +78,6 @@
         </div>
       </div>
     </div>
-<<<<<<< Updated upstream
-
-    <hr>
-
-    <h3>Datos</h3>
-
-    <div class="dato"><strong>ID:</strong> {{ especieSeleccionada?.id || '—' }}</div>
-    <div class="dato"><strong>Nombre:</strong> {{ especieSeleccionada?.nombreComun || '—' }}</div>
-    <div class="dato"><strong>Científico:</strong> {{ especieSeleccionada?.nombreCientifico || '—' }}</div>
-
-    <div class="dato">
-      <strong>Observaciones:</strong>
-    </div>
-
-    <!-- LISTA DE OBSERVACIONES -->
-    <div class="obs-list">
-      <div *ngFor="let o of observaciones" class="obs-item">
-        <strong>{{ o.usuarioId }}:</strong>
-        <p>{{ o.comentario }}</p>
-        <small>{{ o.fecha | date:'short' }}</small>
-        <hr>
-      </div>
-    </div>
-
-    <!-- AGREGAR NUEVA -->
-    <div class="nueva-obs">
-      <textarea [(ngModel)]="nuevaObservacion" placeholder="Agregar observación..."></textarea>
-      <button class="btn-nav" (click)="guardarObservacion()">Guardar</button>
-    </div>
-    <button class="btn-nav" [disabled]="!especieSeleccionada" (click)="irAImagenes()">Ver Imágenes</button>
-    <button class="btn-nav" (click)="irAMapa()">Ver Mapa</button>
-  </aside>
-
-  <section class="center-panel">
-
-    <div class="search-box">
-      <input 
-        type="text"
-        [(ngModel)]="busqueda"
-        (input)="filtrar()"
-        placeholder="Buscar especie...">
-    </div>
-
-    <!-- Imagen + flechas -->
-    <div class="img-container">
-      <button class="arrow left" (click)="anterior()">&lt;</button>
-      <img [src]="getImagenActual()" alt="mariposa">
-      <button class="arrow right" (click)="siguiente()">&gt;</button>
-    </div>
-
-    <button class="btn-identificar" (click)="identificar()">
-      Identificar
-    </button>
-
-  </section>
-
-  <aside class="right-panel">
-    <div class="lista">
-      <app-detalle-especie
-        *ngIf="especieSeleccionada"
-        [especie]="especieSeleccionada">
-      </app-detalle-especie>
-    </div>
-  </aside>
-=======
   </div>
->>>>>>> Stashed changes
 
 </div>
