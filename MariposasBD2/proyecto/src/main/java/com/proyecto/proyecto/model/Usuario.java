@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -15,6 +17,7 @@ public class Usuario {
     private String correo;
     private String contrasena;
     private String rol; 
+    @Field("fecha_registro")
     private Date fechaRegistro;
 
     // Getters y Setters

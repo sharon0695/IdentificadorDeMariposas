@@ -3,6 +3,8 @@ import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -10,7 +12,9 @@ import lombok.AllArgsConstructor;
 public class Observacion {
     @Id
     private String id;
+    @Field("especie_id") 
     private String especieId; 
+    @Field("usuario_id")
     private String usuarioId; 
     private String comentario;
     private Date fecha;

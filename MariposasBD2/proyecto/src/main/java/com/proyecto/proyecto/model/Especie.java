@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -12,21 +14,31 @@ import lombok.AllArgsConstructor;
 public class Especie {
     @Id
     private String id;
+    @Field("nombre_cientifico") 
     private String nombreCientifico;
+    @Field("nombre_comun") 
     private String nombreComun;
     private String familia;
+    @Field("tipo_especie") 
     private String tipoEspecie; 
     private String descripcion;
     private List<String> imagenes;
 
+    @Field("imagenes_detalladas") 
     private ImagenesDetalladas imagenesDetalladas;
+    @Field("caracteristicas_morfo") 
     private CaracteristicasMorfo caracteristicasMorfo;
+    @Field("ubicacion_recoleccion") 
     private String ubicacionRecoleccion; 
+    @Field("fecha_registro") 
     private Date fechaRegistro;
+    @Field("registrado_por") 
     private String registradoPor; 
 
     public static class ImagenesDetalladas {
+        @Field("ala_izquierda") 
         private String alaIzquierda;
+        @Field("ala_derecha") 
         private String alaDerecha;
         private String antenas;
         private String cuerpo;

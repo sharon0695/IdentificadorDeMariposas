@@ -92,10 +92,6 @@
     </div>
 
     <div class="lista">
-      <div *ngFor="let especie of especies" (click)="seleccionar(especie)">
-        {{ especie.nombreComun }}
-      </div>
-
       <app-detalle-especie
         *ngIf="especieSeleccionada"
         [especie]="especieSeleccionada">
