@@ -1,83 +1,189 @@
 /* --- CONTENEDOR PRINCIPAL --- */
 .app-container {
   display: grid;
-  grid-template-columns: 250px 1fr 250px;
+  grid-template-columns: 320px 1fr 380px;
   height: 100vh;
-  background: #f5f5f5;
-  gap: 10px;
-  padding: 10px;
+  background: #f3f5f7;
+  gap: 12px;
+  padding: 12px;
 }
-.lista-especies {
-  max-height: 250px;
-  overflow-y: auto;
+
+/* ========================================================
+   PANEL IZQUIERDO (DETALLES + LISTA)
+======================================================== */
+.left-panel {
+  background: #4b1e53;
+  color: #fff;
+  padding: 25px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.left-panel h3 {
+  font-size: 22px;
   margin-bottom: 10px;
+}
+
+.lista-especies {
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 5px;
 }
 
 .item-especie {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 6px 4px;
-  background: #f2f2f2;
-  margin-bottom: 5px;
-  border-radius: 6px;
+  background: rgba(255,255,255,0.15);
+  padding: 8px 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.item-especie span {
+  color: #fff;
+  font-size: 14px;
 }
 
 .btn-ver {
-  background: #3f51b5;
-  color: white;
+  background: #ffffff;
+  color: #4b1e53;
   border: none;
-  padding: 4px 10px;
-  border-radius: 4px;
+  padding: 4px 12px;
+  font-weight: bold;
+  border-radius: 6px;
   cursor: pointer;
 }
 
 .btn-ver:hover {
-  background: #283593;
+  background: #dcd1df;
 }
 
-
-/* --- PANEL IZQUIERDO --- */
-.left-panel {
-  background: white;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.left-panel h3 {
-  margin: 0 0 10px 0;
-}
-
+/* Datos */
 .dato {
-  font-size: 14px;
-  padding: 4px 0;
+  font-size: 15px;
+  margin-bottom: 5px;
 }
 
 .obs-box {
   width: 100%;
-  height: 80px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  padding: 5px;
+  height: 85px;
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+  outline: none;
 }
 
-/* --- BOTÓN API --- */
-.btn-api {
-  margin-top: 10px;
+/* Botones secundarios */
+.btn-nav {
   padding: 10px;
+  background: #ffffff;
   border: none;
-  background: #4c8bf5;
-  color: white;
-  border-radius: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #4b1e53;
+}
+
+.btn-nav:hover {
+  background: #dcd1df;
+}
+
+.btn-crear {
+  padding: 12px;
+  background: #1e8b4cc2;
+  color: #fff;
+  border: none;
+  font-size: 15px;
+  border-radius: 10px;
   cursor: pointer;
 }
-.btn-api:hover { background: #2c6ce3; }
 
-/* --- CENTRO: IMAGEN --- */
+.btn-crear:hover {
+  background: #15eb71;
+}
+
+/* Botón mapa */
+.btn-mapa {
+  padding: 14px;
+  background: #c0392b;
+  border: none;
+  color: #fff;
+  border-radius: 10px;
+  margin-top: auto;
+  cursor: pointer;
+}
+.btn-mapa:hover {
+  background: #992d21;
+}
+
+/* ========================================================
+   BARRA SUPERIOR
+======================================================== */
+.top-bar {
+  grid-column: span 3;
+  background: #e8edf0;
+  padding: 10px 20px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+
+.top-bar input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #bbb;
+}
+
+.search-box {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 60%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #bbb;
+}
+
+.search-box .btn-buscar {
+  padding: 10px 14px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.search-box .btn-buscar:hover {
+  background: #2b7fb9;
+}
+
+
+.btn-logout {
+  padding: 10px 14px;
+  background: #d63031;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.btn-logout:hover {
+  background: #b02121;
+}
+
+/* ========================================================
+   PANEL CENTRAL (Imagen)
+======================================================== */
 .center-panel {
   display: flex;
   flex-direction: column;
@@ -87,11 +193,11 @@
 
 .img-container {
   position: relative;
-  width: 350px;
-  height: 350px;
+  width: 380px;
+  height: 380px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 .img-container img {
@@ -104,79 +210,36 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 30px;
+  font-size: 35px;
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 5px;
+  color: #4b1e53;
 }
 
-.arrow.left { left: -40px; }
-.arrow.right { right: -40px; }
+.arrow.left { left: -35px; }
+.arrow.right { right: -35px; }
 
-/* --- BOTÓN IDENTIFICAR --- */
 .btn-identificar {
   margin-top: 20px;
   padding: 12px 25px;
-  border: none;
   background: #00b894;
   color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-}
-.btn-identificar:hover { background: #009e7f; }
-
-/* --- PANEL DERECHO --- */
-.right-panel {
-  background: white;
-  padding: 15px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-}
-
-/* --- BUSCADOR --- */
-.search-box {
-  display: flex;
-  gap: 8px;
-}
-
-.search-box input {
-  flex: 1;
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-/* --- BOTÓN SALIR --- */
-.btn-logout {
-  padding: 8px 12px;
-  background: #d63031;
-  color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
 }
-.btn-logout:hover { background: #b02121; }
+.btn-identificar:hover {
+  background: #00916e;
+}
 
-/* --- LISTA DERECHA --- */
-.lista {
-  border-top: 1px solid #ddd;
-  padding-top: 10px;
-  height: 100%;
+/* ========================================================
+   PANEL DERECHO
+======================================================== */
+.right-panel {
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
   overflow-y: auto;
-}
-
-.item {
-  padding: 8px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.item:hover {
-  background: #f0f0f0;
 }

@@ -25,10 +25,12 @@ export class Mariposas {
 
   cargando = false;
   error: string | null = null;
+  userRole: string | null = null;
 
-  constructor(private auth: AuthService, private router: Router, private especiesService: EspecieService) {}
+  constructor(protected auth: AuthService, private router: Router, private especiesService: EspecieService) {}
 
   ngOnInit() {
+    this.userRole = this.auth.getUserRole();
     this.especiesService.getEspecies().subscribe({
       next: data => {
         console.log("ESPECIES RECIBIDAS:", data);
@@ -95,6 +97,8 @@ export class Mariposas {
     alert("Función de identificación ejecutada. (Aquí pones tu lógica)");
   }
 
+  buscar(){}
+
   anterior() {
     if (!this.especieSeleccionada?.imagenes?.length) return;
     this.imgIndex = (this.imgIndex - 1 + this.especieSeleccionada.imagenes.length) % this.especieSeleccionada.imagenes.length;
@@ -105,6 +109,9 @@ export class Mariposas {
     this.imgIndex = (this.imgIndex + 1) % this.especieSeleccionada.imagenes.length;
   }
 
+  crearEspecie() {
+    this.router.navigate(['/crear-especie']);
+  }
   agregarImagenGeneral(url: string) {
     if (!this.especieSeleccionada?.id) return alert('Selecciona una especie primero');
     this.especiesService.agregarImagenGeneral(this.especieSeleccionada.id, url).subscribe({

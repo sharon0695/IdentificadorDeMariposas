@@ -1,75 +1,62 @@
 <div class="app-container">
 
-  <!-- COLUMNA IZQUIERDA: Lista + Detalle -->
-  <aside class="left-panel">
+  <!-- 🔴 BARRA SUPERIOR SOLO CON SALIR -->
+  <div class="top-bar">
+    <button class="btn-logout" (click)="logout()">Salir</button>
+  </div>
 
+  <!-- 🟣 COLUMNA IZQUIERDA -->
+  <aside class="left-panel">
     <h3>Especies</h3>
 
-    <!-- LISTA DE ESPECIES CON BOTÓN VER -->
+    <button 
+      *ngIf="userRole === 'administrador'"
+      class="btn-crear"
+      (click)="crearEspecie()">
+      Crear especie
+    </button>
+
     <div class="lista-especies">
-
       <div *ngFor="let especie of especies" class="item-especie">
-
         <span>{{ especie.nombreComun }}</span>
-
-        <button class="btn-ver"
-                (click)="seleccionar(especie)">
-          Ver
-        </button>
-
+        <button class="btn-ver" (click)="seleccionar(especie)">Ver</button>
       </div>
-
     </div>
 
     <hr>
 
-    <!-- DETALLES DE LA ESPECIE SELECCIONADA -->
     <h3>Datos</h3>
 
     <div class="dato"><strong>ID:</strong> {{ especieSeleccionada?.id || '—' }}</div>
     <div class="dato"><strong>Nombre:</strong> {{ especieSeleccionada?.nombreComun || '—' }}</div>
     <div class="dato"><strong>Científico:</strong> {{ especieSeleccionada?.nombreCientifico || '—' }}</div>
 
-    <!-- Observación rápida -->
     <div class="dato"><strong>Observaciones:</strong></div>
     <textarea [(ngModel)]="observacion" class="obs-box"></textarea>
 
-    <!-- Navegación a otros componentes -->
-    <button class="btn-nav"
-            [disabled]="!especieSeleccionada"
-            (click)="irADetalle()">
-      Ver Detalles
-    </button>
-
-    <button class="btn-nav"
-            [disabled]="!especieSeleccionada"
-            (click)="irAImagenes()">
-      Ver Imágenes
-    </button>
-
-    <button class="btn-nav"
-            (click)="irAObservaciones()">
-      Ver Observaciones
-    </button>
-
-    <button class="btn-nav"
-            (click)="irAMapa()">
-      Ver Mapa
-    </button>
-
+    <button class="btn-nav" [disabled]="!especieSeleccionada" (click)="irADetalle()">Ver Detalles</button>
+    <button class="btn-nav" [disabled]="!especieSeleccionada" (click)="irAImagenes()">Ver Imágenes</button>
+    <button class="btn-nav" (click)="irAObservaciones()">Ver Observaciones</button>
+    <button class="btn-nav" (click)="irAMapa()">Ver Mapa</button>
   </aside>
 
-
-  <!-- ZONA CENTRAL — se mantiene igual -->
+  <!-- 🟦 PANEL CENTRAL -->
   <section class="center-panel">
 
+    <!-- 🔵 NUEVA BARRA DE BÚSQUEDA AQUI -->
+    <div class="search-box">
+      <input 
+        type="text" 
+        placeholder="Buscar especie..."
+        [(ngModel)]="busqueda">
+      
+      <button class="btn-buscar" (click)="buscar()">Buscar</button>
+    </div>
+
+    <!-- Imagen + flechas -->
     <div class="img-container">
       <button class="arrow left" (click)="anterior()">&lt;</button>
-
-      <img 
-        [src]="getImagenActual()" 
-        alt="mariposa">
-
+      <img [src]="getImagenActual()" alt="mariposa">
       <button class="arrow right" (click)="siguiente()">&gt;</button>
     </div>
 
@@ -79,26 +66,14 @@
 
   </section>
 
-
-  <!-- COLUMNA DERECHA — se mantiene igual -->
+  <!-- 🟩 COLUMNA DERECHA -->
   <aside class="right-panel">
-
-    <div class="search-box">
-      <input type="text"
-             placeholder="Buscar especie..."
-             [(ngModel)]="busqueda">
-
-      <button class="btn-logout" (click)="logout()">Salir</button>
-    </div>
-
     <div class="lista">
       <app-detalle-especie
         *ngIf="especieSeleccionada"
         [especie]="especieSeleccionada">
       </app-detalle-especie>
-
     </div>
-
   </aside>
 
 </div>

@@ -85,7 +85,9 @@ public class Especie {
 
     public static class CaracteristicasMorfo {
         private String color;
-        private String tamañoAlas;
+        @Field("tamano_alas") 
+        private String tamanoAlas;
+        @Field("forma_antenas") 
         private String formaAntenas;
         // Getters y Setters
         public String getColor(){
@@ -94,11 +96,11 @@ public class Especie {
         public void setColor(String color){
             this.color = color;
         }
-        public String getTamañoAlas(){
-            return tamañoAlas;
+        public String getTamanoAlas(){
+            return tamanoAlas;
         }
-        public void setTamañoAlas(String tamañoAlas){
-            this.tamañoAlas = tamañoAlas;
+        public void setTamanoAlas(String tamañoAlas){
+            this.tamanoAlas = tamañoAlas;
         }
         public String getFormaAntenas(){
             return formaAntenas;
