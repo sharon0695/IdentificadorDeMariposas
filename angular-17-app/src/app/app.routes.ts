@@ -3,8 +3,6 @@ import { Login } from './login/login';
 import { SingUp } from './sing-up/sing-up';
 import { Mariposas } from './mariposas/mariposas';
 import { CrearEspecie } from './crear-especie/crear-especie';
-import { DetalleEspecie } from './detalle-especie/detalle-especie';
-import { ImagenesEspecie } from './imagenes-especie/imagenes-especie';
 import { Observaciones } from './observaciones/observaciones';
 import { MapaEspecies } from './mapa-especies/mapa-especies';
 

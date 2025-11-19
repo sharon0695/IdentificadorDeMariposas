@@ -16,7 +16,7 @@ export class RoleGuard implements CanActivate {
   ) {}
 
   canActivate(): boolean {
-    const rol = this.auth.getRol();
+    const rol = this.auth.getUserRole();
 
     if (rol === 'ADMIN') {
       return true;
