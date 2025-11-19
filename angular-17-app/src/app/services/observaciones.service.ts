@@ -21,7 +21,7 @@ export class ObservacionesService {
 
   /** Crear */
   crearObservacion(data: Observacion): Observable<Observacion> {
-    return this.http.post<Observacion>(this.apiUrl, data);
+    return this.http.post<Observacion>(`${this.apiUrl}/crear`, data);
   }
 
   /** Listar */
