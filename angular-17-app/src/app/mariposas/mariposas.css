@@ -54,7 +54,7 @@
   background: #ffffff;
   color: #4b1e53;
   border: none;
-  padding: 4px 12px;
+  padding: 4px 8px;
   font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
@@ -246,4 +246,23 @@
 
   height: calc(100vh - 90px);
   overflow-y: auto;
+}
+.acciones {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-eliminar {
+  padding: 4px 8px;
+  background-color: #c0392b;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.btn-eliminar:hover {
+  background-color: #e74c3c;
 }

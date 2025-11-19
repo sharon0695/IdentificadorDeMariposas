@@ -1,11 +1,9 @@
 <div class="app-container">
 
-  <!-- 🔴 BARRA SUPERIOR SOLO CON SALIR -->
   <div class="top-bar">
     <button class="btn-logout" (click)="logout()">Salir</button>
   </div>
 
-  <!-- 🟣 COLUMNA IZQUIERDA -->
   <aside class="left-panel">
     <h3>Especies</h3>
 
@@ -19,7 +17,15 @@
     <div class="lista-especies">
       <div *ngFor="let especie of especiesFiltradas" class="item-especie">
         <span>{{ especie.nombreComun }}</span>
+        <div class="acciones">
         <button class="btn-ver" (click)="seleccionar(especie)">Ver</button>
+        <button 
+          *ngIf="userRole === 'administrador'"
+          class="btn-eliminar"
+          (click)="eliminarEspecie(especie.id)">
+          🗑
+        </button>
+        </div>
       </div>
     </div>
 
@@ -40,10 +46,8 @@
     <button class="btn-nav" (click)="irAMapa()">Ver Mapa</button>
   </aside>
 
-  <!-- 🟦 PANEL CENTRAL -->
   <section class="center-panel">
 
-    <!-- 🔵 NUEVA BARRA DE BÚSQUEDA AQUI -->
     <div class="search-box">
       <input 
         type="text"
@@ -65,7 +69,6 @@
 
   </section>
 
-  <!-- 🟩 COLUMNA DERECHA -->
   <aside class="right-panel">
     <div class="lista">
       <app-detalle-especie
