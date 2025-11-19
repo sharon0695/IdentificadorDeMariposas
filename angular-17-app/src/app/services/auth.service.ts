@@ -127,16 +127,8 @@ export class AuthService {
   }
 
   getUserId(): string | null {
-    if (!this.isBrowser) return null;
-
-    try {
-      const raw = this.lsGet('auth_user');
-      if (!raw) return null;
-      const obj = JSON.parse(raw);
-      return obj?.id ?? null;
-    } catch {
-      return null;
-    }
+    const u = this.getUserRaw();
+      return u?.id.toString() ?? null;
   }
 
   getUser() {

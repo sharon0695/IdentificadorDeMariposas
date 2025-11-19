@@ -18,9 +18,9 @@ export class Observaciones {
   observaciones: Observacion[] = [];
 
   nueva: Observacion = {
-    especieId: "",
-    usuarioId: "",
-    comentario: ""
+    especieId: '',
+    usuarioId: '',
+    comentario: ''
   };
 
   constructor(
@@ -31,14 +31,13 @@ export class Observaciones {
 
   ngOnInit() {
     this.especieId = this.route.snapshot.queryParamMap.get('especieId') || "";
-
+    this.listar();
     const uid = this.auth.getUserId();
     if (!uid) {
       alert("No hay usuario autenticado");
       return;
     }
     this.nueva.usuarioId = uid;
-    this.listar();
   }
 
   listar() {
@@ -54,7 +53,6 @@ export class Observaciones {
       alert('No hay usuario autenticado');
       return;
     }
-
     this.nueva.usuarioId = uid;
     this.nueva.especieId = this.especieId;
     this.nueva.fecha = new Date();

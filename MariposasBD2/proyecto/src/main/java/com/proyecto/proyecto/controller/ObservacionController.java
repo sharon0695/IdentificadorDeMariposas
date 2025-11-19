@@ -22,7 +22,7 @@ public class ObservacionController {
     @Autowired IObservacionService service;
     @Autowired IObservacionRepository observacionRepository;
 
-    @PostMapping
+    @PostMapping("/crear")
     public Observacion crear(@RequestBody Observacion observacion) {
         return service.guardar(observacion);
     }
