@@ -1,22 +1,69 @@
 <h2>Registrar Nueva Especie</h2>
 
 <div class="formulario">
-  <label>Nombre común</label>
-  <input [(ngModel)]="especie.nombreComun">
-
-  <label>Nombre científico</label>
-  <input [(ngModel)]="especie.nombreCientifico">
-
-  <label>Familia</label>
-  <input [(ngModel)]="especie.familia">
-
-  <label>Tipo de especie</label>
-  <input [(ngModel)]="especie.tipoEspecie">
-
+  <!-- Sección de Información General -->
+  <h3>Información General</h3>
+  <div class="form-grid">
+    <div>
+      <label>Nombre común</label>
+      <input [(ngModel)]="especie.nombreComun">
+    </div>
+    <div>
+      <label>Nombre científico</label>
+      <input [(ngModel)]="especie.nombreCientifico">
+    </div>
+    <div>
+      <label>Familia</label>
+      <input [(ngModel)]="especie.familia">
+    </div>
+    <div>
+      <label>Tipo de especie</label>
+      <input [(ngModel)]="especie.tipoEspecie">
+    </div>
+  </div>
   <label>Descripción</label>
   <textarea [(ngModel)]="especie.descripcion"></textarea>
 
-  <button (click)="guardar()" class="btn-save">
-    Guardar
+  <label>Ubicación de recolección</label>
+  <input [(ngModel)]="especie.ubicacionRecoleccion" placeholder="Ej: Neiva, Huila, Colombia">
+
+  <!-- Sección de Características Morfológicas -->
+  <h3>Características Morfológicas</h3>
+  <div class="form-grid">
+    <div>
+      <label>Color predominante</label>
+      <input [(ngModel)]="especie.caracteristicasMorfo.color">
+    </div>
+    <div>
+      <label>Tamaño de alas (mm)</label>
+      <input type="number" [(ngModel)]="especie.caracteristicasMorfo.tamanoAlas">
+    </div>
+    <div>
+      <label>Forma de las antenas</label>
+      <input [(ngModel)]="especie.caracteristicasMorfo.formaAntenas">
+    </div>
+  </div>
+
+  <!-- Sección de Imágenes -->
+  <h3>Imágenes</h3>
+  <label>Imágenes de la especie</label>
+  <input 
+    type="file" 
+    (change)="onFileSelected($event)" 
+    multiple 
+    accept="image/*"> 
+
+  <label>Imágenes Detalladas (Opcional)</label>
+  <div class="form-grid">
+    <div><label>Ala Izquierda</label><input type="file" (change)="onDetailedFileSelected($event, 'alaIzquierda')" accept="image/*"></div>
+    <div><label>Ala Derecha</label><input type="file" (change)="onDetailedFileSelected($event, 'alaDerecha')" accept="image/*"></div>
+    <div><label>Antenas</label><input type="file" (change)="onDetailedFileSelected($event, 'antenas')" accept="image/*"></div>
+    <div><label>Cuerpo</label><input type="file" (change)="onDetailedFileSelected($event, 'cuerpo')" accept="image/*"></div>
+    <div><label>Patas</label><input type="file" (change)="onDetailedFileSelected($event, 'patas')" accept="image/*"></div>
+    <div><label>Cabeza</label><input type="file" (change)="onDetailedFileSelected($event, 'cabeza')" accept="image/*"></div>
+  </div>
+
+  <button (click)="guardar()" class="btn-save" [disabled]="isUploading">
+    {{ isUploading ? 'Guardando...' : 'Guardar' }}
   </button>
 </div>

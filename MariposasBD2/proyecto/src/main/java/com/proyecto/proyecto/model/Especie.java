@@ -3,6 +3,7 @@ package com.proyecto.proyecto.model;
 import java.util.Date;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -13,7 +14,7 @@ import lombok.AllArgsConstructor;
 @Document(collection = "especies")
 public class Especie {
     @Id
-    private String id;
+    private ObjectId id;
     @Field("nombre_cientifico") 
     private String nombreCientifico;
     @Field("nombre_comun") 
@@ -111,11 +112,11 @@ public class Especie {
     }
 
     // Getters y Setters
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

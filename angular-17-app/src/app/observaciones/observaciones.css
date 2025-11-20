@@ -1,0 +1,127 @@
+/* --- Estilos para la Sección de Observaciones --- */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Fondo muy claro */
+    padding: 20px;
+    color: #333;
+}
+
+h2, h3 {
+    color: #0056b3; /* Título principal */
+    border-bottom: 2px solid #0056b3;
+    padding-bottom: 5px;
+    margin-top: 20px;
+}
+
+/* Mensaje cuando no hay observaciones */
+div[class*="ngIf"] p {
+    background-color: #e9ecef;
+    padding: 15px;
+    border-radius: 4px;
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+/* Lista de Observaciones */
+ul {
+    list-style: none; /* Eliminar viñetas por defecto */
+    padding: 0;
+    margin-top: 15px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Elemento individual de la observación */
+ul li {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+/* Nombre de usuario */
+ul li strong {
+    color: #1e88e5; /* Un azul vibrante */
+    font-size: 1.1em;
+    display: block; /* Ocupa toda la línea */
+    margin-bottom: 5px;
+}
+
+/* Comentario (el texto principal) */
+ul li {
+    /* El comentario se mezcla con el li, pero el line-height ayuda */
+    color: #495057; 
+}
+
+/* Fecha/hora de la observación */
+ul li small {
+    display: block;
+    color: #999;
+    margin-top: 5px;
+    font-size: 0.85em;
+}
+
+/* Línea divisoria dentro de la observación */
+ul li hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+
+/* --- Estilos para la Nueva Observación (Formulario) --- */
+h3 {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    border-color: #28a745;
+    color: #28a745; /* Título del formulario */
+}
+
+textarea {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    margin: 15px auto;
+    padding: 15px;
+    min-height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    resize: vertical; /* Permitir solo redimensionamiento vertical */
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+textarea:focus {
+    border-color: #28a745;
+    outline: none;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.3);
+}
+
+button {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    margin: 10px auto;
+    background-color: #28a745; /* Color verde para Guardar */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #218838;
+}

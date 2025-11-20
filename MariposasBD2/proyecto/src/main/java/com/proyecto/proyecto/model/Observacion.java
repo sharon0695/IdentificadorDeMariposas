@@ -1,6 +1,7 @@
 package com.proyecto.proyecto.model;
 import java.util.Date;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -11,36 +12,36 @@ import lombok.AllArgsConstructor;
 @Document(collection = "observaciones")
 public class Observacion {
     @Id
-    private String id;
+    private ObjectId id;
     @Field("especie_id") 
-    private String especieId; 
+    private ObjectId especieId; 
     @Field("usuario_id")
-    private String usuarioId; 
+    private ObjectId usuarioId; 
     private String comentario;
     private Date fecha;
 
     // Getters y Setters
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
-    public String getEspecieId() {
+    public ObjectId getEspecieId() {
         return especieId;
     }
 
-    public void setEspecieId(String especieId) {
+    public void setEspecieId(ObjectId especieId) {
         this.especieId = especieId;
     }
 
-    public String getUsuarioId() {
+    public ObjectId getUsuarioId() {
         return usuarioId;
     }
 
-    public void setUsuarioId(String usuarioId) {
+    public void setUsuarioId(ObjectId usuarioId) {
         this.usuarioId = usuarioId;
     }
 

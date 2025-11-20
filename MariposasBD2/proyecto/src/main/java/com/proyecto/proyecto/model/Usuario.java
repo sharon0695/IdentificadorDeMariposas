@@ -2,6 +2,7 @@ package com.proyecto.proyecto.model;
 
 import java.util.Date;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Document(collection = "usuarios")
 public class Usuario {
     @Id
-    private String id;
+    private ObjectId id;
     private String nombre;
     private String correo;
     private String contrasena;
@@ -23,11 +24,11 @@ public class Usuario {
     private Date fechaRegistro;
 
     // Getters y Setters
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

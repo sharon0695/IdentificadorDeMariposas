@@ -9,24 +9,27 @@ export interface Especie {
   familia?: string;
   tipoEspecie?: string;
   descripcion?: string;
-  imagenes?: string[];
-  imagenesDetalladas?: {
+  imagenes: string[];
+  imagenesDetalladas?: ImagenesDetalladas;
+  caracteristicasMorfo: CaracteristicasMorfo;
+  ubicacionRecoleccion?: string;
+  fechaRegistro?: Date;
+  registradoPor?: string;
+}
+  export interface ImagenesDetalladas {
     alaIzquierda?: string;
     alaDerecha?: string;
     antenas?: string;
     cuerpo?: string;
     patas?: string;
     cabeza?: string;
-  };
-  caracteristicasMorfo?: {
+  }
+  export interface CaracteristicasMorfo {
     color?: string;
     tamanoAlas?: number;
     formaAntenas?: string;
-  };
-  ubicacionRecoleccion?: string;
-  fechaRegistro?: Date;
-  registradoPor?: string;
-}
+  }
+  
 
 @Injectable({
   providedIn: 'root'
