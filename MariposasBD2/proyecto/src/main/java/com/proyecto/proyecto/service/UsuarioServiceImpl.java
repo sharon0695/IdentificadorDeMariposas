@@ -84,7 +84,7 @@ public Usuario guardar(Usuario usuario) {
             token,
             "Bearer",
             jwtUtil.getExpirationMillis(),
-            usuario.getId().toHexString(),
+            usuario.getIdAsString(),
             usuario.getNombre(),
             usuario.getCorreo(),
             usuario.getRol()
