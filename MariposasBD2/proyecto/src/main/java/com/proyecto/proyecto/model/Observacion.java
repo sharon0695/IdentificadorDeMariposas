@@ -6,6 +6,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -19,6 +21,11 @@ public class Observacion {
     private ObjectId usuarioId; 
     private String comentario;
     private Date fecha;
+    
+    @JsonProperty("id")
+    public String getIdAsString(){
+        return id != null ? id.toHexString():null;
+    }
 
     // Getters y Setters
     public ObjectId getId() {

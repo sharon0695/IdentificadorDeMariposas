@@ -3,6 +3,9 @@ package com.proyecto.proyecto.model;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -17,6 +20,10 @@ public class Ubicacion {
     private GeoLocalizacion geolocalizacion;
     private String ecosistema;
 
+    @JsonProperty("id")
+    public String getIdAsString(){
+        return id != null ? id.toHexString():null;
+    }
     public static class GeoLocalizacion {
         private double latitud;
         private double longitud;

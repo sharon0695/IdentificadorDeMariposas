@@ -8,6 +8,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -37,6 +39,18 @@ public class Especie {
     private Date fechaRegistro;
     @Field("registrado_por") 
     private ObjectId registradoPor; 
+    @JsonProperty("id")
+    public String getUbicacionRecoleccionAsString(){
+        return ubicacionRecoleccion != null ? ubicacionRecoleccion.toHexString():null;
+    }
+    @JsonProperty("id")
+    public String getIdAsString(){
+        return id != null ? id.toHexString():null;
+    }
+    @JsonProperty("id")
+    public String getRegistradoPorAsString(){
+        return registradoPor != null ? registradoPor.toHexString():null;
+    }
 
     public Especie(CaracteristicasMorfo caracteristicasMorfo, String descripcion, String familia, Date fechaRegistro, List<String> imagenes, ImagenesDetalladas imagenesDetalladas, String nombreCientifico, String nombreComun, ObjectId registradoPor, String tipoEspecie, ObjectId ubicacionRecoleccion) {
         this.caracteristicasMorfo = caracteristicasMorfo;

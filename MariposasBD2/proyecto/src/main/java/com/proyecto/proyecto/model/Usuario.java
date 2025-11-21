@@ -25,7 +25,7 @@ public class Usuario {
     @Field("fecha_registro")
     private Date fechaRegistro;
 
-     @JsonProperty("id")
+    @JsonProperty("id")
     public String getIdAsString(){
         return id != null ? id.toHexString():null;
     }
