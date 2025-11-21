@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class EspecieServiceImpl implements IEspecieService {
     }
 
     @Override
-    public Optional<Especie> findById(String id) {
+    public Optional<Especie> findById(ObjectId id) {
         return especieRepository.findById(id);
     }
 
@@ -31,7 +32,7 @@ public class EspecieServiceImpl implements IEspecieService {
     }
 
     @Override
-    public void agregarImagenGeneral(String idEspecie, String urlImagen) {
+    public void agregarImagenGeneral(ObjectId idEspecie, String urlImagen) {
         Especie especie = especieRepository.findById(idEspecie)
                 .orElseThrow(() -> new RuntimeException("Especie no encontrada"));
 
@@ -44,7 +45,7 @@ public class EspecieServiceImpl implements IEspecieService {
     }
 
     @Override
-    public void agregarImagenDetallada(String idEspecie, String parte, String url) {
+    public void agregarImagenDetallada(ObjectId idEspecie, String parte, String url) {
         Especie especie = especieRepository.findById(idEspecie)
                 .orElseThrow(() -> new RuntimeException("Especie no encontrada"));
 
@@ -66,7 +67,7 @@ public class EspecieServiceImpl implements IEspecieService {
     }
 
     @Override
-    public void actualizarUbicacion(String id, String ubic) {
+    public void actualizarUbicacion(ObjectId id, ObjectId ubic) {
         Especie esp = especieRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Especie no encontrada"));
 
@@ -75,7 +76,7 @@ public class EspecieServiceImpl implements IEspecieService {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(ObjectId id) {
         especieRepository.deleteById(id);
     }
 }

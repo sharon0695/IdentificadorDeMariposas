@@ -7,6 +7,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -23,6 +25,10 @@ public class Usuario {
     @Field("fecha_registro")
     private Date fechaRegistro;
 
+     @JsonProperty("id")
+    public String getIdAsString(){
+        return id != null ? id.toHexString():null;
+    }
     // Getters y Setters
     public ObjectId getId() {
         return id;

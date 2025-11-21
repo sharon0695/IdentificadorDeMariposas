@@ -3,6 +3,7 @@ package com.proyecto.proyecto.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -83,7 +84,7 @@ public Usuario guardar(Usuario usuario) {
             token,
             "Bearer",
             jwtUtil.getExpirationMillis(),
-            usuario.getId(),
+            usuario.getId().toHexString(),
             usuario.getNombre(),
             usuario.getCorreo(),
             usuario.getRol()
@@ -96,12 +97,12 @@ public Usuario guardar(Usuario usuario) {
     }
 
     @Override
-    public Usuario obtenerPorId(String id) {
+    public Usuario obtenerPorId(ObjectId id) {
         return repository.findById(id).orElse(null);
     }
 
     @Override
-    public void eliminar(String id) {
+    public void eliminar(ObjectId id) {
         repository.deleteById(id);
     }
 

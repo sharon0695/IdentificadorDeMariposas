@@ -1,5 +1,6 @@
 package com.proyecto.proyecto.DTO;
 
+
 public class RegistroResponse {
 
     private String id;

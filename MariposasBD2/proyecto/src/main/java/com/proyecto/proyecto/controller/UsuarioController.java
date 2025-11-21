@@ -2,6 +2,7 @@ package com.proyecto.proyecto.controller;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +40,7 @@ public ResponseEntity<?> crear(@RequestBody RegistroRequest request) {
         Usuario guardado = service.guardar(usuario);
 
         RegistroResponse response = new RegistroResponse(
-            guardado.getId(),
+            guardado.getId().toHexString(),
             guardado.getNombre(),
             guardado.getCorreo(),
             guardado.getRol(),
@@ -74,12 +75,12 @@ public ResponseEntity<?> crear(@RequestBody RegistroRequest request) {
     }
 
     @GetMapping("/{id}")
-    public Usuario obtenerPorId(@PathVariable String id) {
+    public Usuario obtenerPorId(@PathVariable ObjectId id) {
         return service.obtenerPorId(id);
     }
 
     @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable String id) {
+    public void eliminar(@PathVariable ObjectId id) {
         service.eliminar(id);
     }
 }

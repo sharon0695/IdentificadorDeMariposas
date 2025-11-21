@@ -2,6 +2,7 @@ package com.proyecto.proyecto.controller;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,12 +39,12 @@ public class ObservacionController {
     }
 
     @GetMapping("/{id}")
-    public Observacion obtenerPorId(@PathVariable String id) {
+    public Observacion obtenerPorId(@PathVariable ObjectId id) {
         return service.obtenerPorId(id);
     }
 
     @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable String id) {
+    public void eliminar(@PathVariable ObjectId id) {
         service.eliminar(id);
     }
 }

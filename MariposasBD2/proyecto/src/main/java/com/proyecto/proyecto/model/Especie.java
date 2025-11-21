@@ -9,7 +9,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "especies")
 public class Especie {
@@ -30,11 +32,27 @@ public class Especie {
     @Field("caracteristicas_morfo") 
     private CaracteristicasMorfo caracteristicasMorfo;
     @Field("ubicacion_recoleccion") 
-    private String ubicacionRecoleccion; 
+    private ObjectId ubicacionRecoleccion; 
     @Field("fecha_registro") 
     private Date fechaRegistro;
     @Field("registrado_por") 
-    private String registradoPor; 
+    private ObjectId registradoPor; 
+
+    public Especie(CaracteristicasMorfo caracteristicasMorfo, String descripcion, String familia, Date fechaRegistro, List<String> imagenes, ImagenesDetalladas imagenesDetalladas, String nombreCientifico, String nombreComun, ObjectId registradoPor, String tipoEspecie, ObjectId ubicacionRecoleccion) {
+        this.caracteristicasMorfo = caracteristicasMorfo;
+        this.descripcion = descripcion;
+        this.familia = familia;
+        this.fechaRegistro = fechaRegistro;
+        this.imagenes = imagenes;
+        this.imagenesDetalladas = imagenesDetalladas;
+        this.nombreCientifico = nombreCientifico;
+        this.nombreComun = nombreComun;
+        this.registradoPor = registradoPor;
+        this.tipoEspecie = tipoEspecie;
+        this.ubicacionRecoleccion = ubicacionRecoleccion;
+    }
+
+    
 
     public static class ImagenesDetalladas {
         @Field("ala_izquierda") 
@@ -184,11 +202,11 @@ public class Especie {
         this.caracteristicasMorfo = caracteristicasMorfo;
     }
 
-    public String getUbicacionRecoleccion() {
+    public ObjectId getUbicacionRecoleccion() {
         return ubicacionRecoleccion;
     }
 
-    public void setUbicacionRecoleccion(String ubicacionRecoleccion) {
+    public void setUbicacionRecoleccion(ObjectId ubicacionRecoleccion) {
         this.ubicacionRecoleccion = ubicacionRecoleccion;
     }
 
@@ -200,11 +218,11 @@ public class Especie {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public String getRegistradoPor() {
+    public ObjectId getRegistradoPor() {
         return registradoPor;
     }
 
-    public void setRegistradoPor(String registradoPor) {
+    public void setRegistradoPor(ObjectId registradoPor) {
         this.registradoPor = registradoPor;
     }
 }
