@@ -7,6 +7,7 @@ import { Especie, EspecieService } from '../services/especie.service';
 import { AuthService } from '../services/auth.service';
 import { Ubicacion, UbicacionService } from '../services/ubicacion.service';
 import { Observacion, ObservacionesService } from '../services/observaciones.service';
+import { BackupService } from '../services/backup.service';
 
 @Component({
   selector: 'app-mariposas',
@@ -26,6 +27,7 @@ export class Mariposas {
   especieSeleccionada: any = null;
   ubicacionSeleccionada: Ubicacion | null = null;
   observaciones: Observacion[] = [];
+  archivoSeleccionado?: File;
 
   cargando = false;
   error: string | null = null;
@@ -37,7 +39,8 @@ export class Mariposas {
     private router: Router,
     private especiesService: EspecieService,
     private observacionesService: ObservacionesService,
-    private ubicacionService: UbicacionService
+    private ubicacionService: UbicacionService,
+    private backupService: BackupService
   ) {}
   
   ngOnInit() {
@@ -257,6 +260,48 @@ export class Mariposas {
       },
       error: () => {
         alert('Error al eliminar especie');
+      }
+    });
+  }
+
+  descargarBackup() {
+    this.backupService.generarBackup().subscribe({
+      next: (zipFile) => {
+        const blob = new Blob([zipFile], { type: 'application/zip' });
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'backup.zip';
+        a.click();
+
+        window.URL.revokeObjectURL(url);
+      },
+      error: () => {
+        alert('Error generando la copia de seguridad');
+      }
+    });
+  }
+
+  // Archivo seleccionado para restaurar
+  seleccionarArchivo(event: any) {
+    this.archivoSeleccionado = event.target.files[0];
+  }
+
+  // Restaurar backup
+  restaurarBackup() {
+    if (!this.archivoSeleccionado) {
+      alert('Selecciona un archivo primero');
+      return;
+    }
+
+    this.backupService.restaurarBackup(this.archivoSeleccionado).subscribe({
+      next: () => {
+        alert('Backup restaurado correctamente');
+        location.reload(); // recargar app tras restaurar BD
+      },
+      error: () => {
+        alert('Error restaurando el backup');
       }
     });
   }

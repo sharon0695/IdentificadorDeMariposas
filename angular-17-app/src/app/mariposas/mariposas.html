@@ -39,6 +39,20 @@
                 <button class="btn btn-circular btn-secondary-custom" (click)="irAMapa()">Ver en Mapa</button>
                 <button class="btn btn-circular btn-secondary-custom" (click)="irAReportes()">Reportes</button>
               </div>
+              <div class="backup-container">
+              <h2>Gestión de Copias de Seguridad</h2>
+
+              <button class="btn btn-primary" (click)="descargarBackup()">
+                Descargar copia de seguridad
+              </button>
+
+              <br><br>
+
+              <input type="file" (change)="seleccionarArchivo($event)" />
+              <button class="btn btn-success" (click)="restaurarBackup()">
+                Restaurar copia de seguridad
+              </button>
+            </div>
               </div>
             </div>
             <!-- Contenedor Anidado (Paneles Central y Derecho) -->
