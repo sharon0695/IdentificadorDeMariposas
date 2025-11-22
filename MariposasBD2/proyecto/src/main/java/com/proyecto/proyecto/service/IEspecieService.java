@@ -1,5 +1,6 @@
 package com.proyecto.proyecto.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,4 +19,6 @@ public interface IEspecieService {
     void agregarImagenDetallada(ObjectId idEspecie, String parte, String url);
     void actualizarUbicacion(ObjectId id, ObjectId ubic);
     Especie update(String id, Especie especieActualizada);
+    byte[] generarReporteEspecies(LocalDate fechaInicio, LocalDate fechaFin);
+    byte[] generarReportePorTipo(String tipoEspecie);
 }
