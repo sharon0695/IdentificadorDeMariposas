@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ImageUploadService } from '../services/image-upload.service';
 import { UbicacionService } from '../services/ubicacion.service';
 import { AuthService } from '../services/auth.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-crear-especie',
@@ -106,6 +107,8 @@ export class CrearEspecie {
 
   guardar() {
     if (!this.especie.ubicacionRecoleccion) {
+      // Opcional: podrías mostrar un error si la ubicación es requerida
+      // alert('Por favor, seleccione o cree una ubicación.');
       this.especie.ubicacionRecoleccion = null;
     }
 
@@ -117,18 +120,24 @@ export class CrearEspecie {
 
     console.log('DATA A ENVIAR:', payload);
 
-    this.especieService.createEspecie(payload).subscribe({
-      next: (res) => {
-        console.log('especie creada', res);
-        alert('Especie guardada correctamente');
-        this.resetForm();
-        this.router.navigate(['/manejo-mariposas']);
-      },
-      error: (err) => {
-        console.error('error al crear especie', err);
-        alert('Error al crear especie. Ver consola.');
-      }
-    });
+    this.isUploading = true; // <-- Inicia la carga aquí
+
+    this.especieService.createEspecie(payload)
+      .pipe(
+        finalize(() => this.isUploading = false) // <-- Termina la carga aquí, siempre
+      )
+      .subscribe({
+        next: (res) => {
+          console.log('especie creada', res);
+          alert('Especie guardada correctamente');
+          this.resetForm();
+          this.router.navigate(['/manejo-mariposas']);
+        },
+        error: (err) => {
+          console.error('error al crear especie', err);
+          alert('Error al crear especie. Ver consola.');
+        }
+      });
   }
 
 
