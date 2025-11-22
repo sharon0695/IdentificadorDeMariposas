@@ -14,7 +14,7 @@ export const routes: Routes = [
     {path: 'login', component: Login},
     {path: 'sing-up', component: SingUp},
     {path: 'manejo-mariposas', component: Mariposas},    
-    { path: 'especies/crear', component: CrearEspecie },
+    { path: 'especiescrear', component: CrearEspecie },
     { path: 'observaciones', component: Observaciones },
     { path: 'mapa', component: MapaEspecies },
     { path: '', redirectTo: 'login', pathMatch: 'full' },

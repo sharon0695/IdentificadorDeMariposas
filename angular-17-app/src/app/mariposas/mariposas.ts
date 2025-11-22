@@ -184,7 +184,7 @@ export class Mariposas {
   }
 
   crearEspecie() {
-    this.router.navigate(['/especies/crear']);
+    this.router.navigate(['/especiescrear']);
   }
 
   agregarImagenGeneral(url: string) {

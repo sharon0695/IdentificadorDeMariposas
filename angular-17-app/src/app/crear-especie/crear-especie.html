@@ -157,12 +157,14 @@
             [disabled]="isUploading || especieForm.invalid"
           >
             <span
-              *ngIf="isUploading"
               class="spinner-border spinner-border-sm me-2"
               role="status"
               aria-hidden="true"
-            ></span>
-            {{ isUploading ? 'Guardando...' : 'Guardar Especie' }}
+            ></span> @if (isUploading) {
+            <span>Guardando...</span>
+            } @else {
+            <span>Guardar Especie</span>
+            }
           </button>
         </div>
       </form>
