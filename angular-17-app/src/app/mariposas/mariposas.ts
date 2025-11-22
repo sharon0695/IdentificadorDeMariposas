@@ -36,7 +36,7 @@ export class Mariposas {
     private router: Router,
     private especiesService: EspecieService,
     private observacionesService: ObservacionesService,
-    private ubicacionService: UbicacionService // Inyectar UbicacionService
+    private ubicacionService: UbicacionService
   ) {}
   
   ngOnInit() {

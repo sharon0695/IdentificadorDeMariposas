@@ -67,16 +67,22 @@
           </div>
           <div class="mt-3">
             <label for="ubicacionRecoleccion" class="form-label">Ubicación de recolección</label>
-            <label>Ubicación de Recolección</label>
-              <select [(ngModel)]="especie.ubicacionRecoleccion">
-                <option [value]="null">Seleccione una ubicación</option>
-                
-                <option *ngFor="let u of ubicaciones" [value]="u.id">
-                  {{ u.localidad }} - {{ u.municipio }} ({{ u.departamento }})
-                </option>
+            <label>Ubicación de recolección</label>
 
-                <option value="crear">+ Crear nueva ubicación</option>
-              </select>
+            <select
+              [(ngModel)]="selectedUbicacionId"
+              name="ubicacionSelect"
+              (change)="onUbicacionChange()"
+              class="form-control"
+            >
+              <option [ngValue]="null">-- Seleccione una ubicación --</option>
+
+              <option *ngFor="let u of ubicaciones" [ngValue]="u.id">
+                {{ u.localidad }} - {{ u.municipio }} ({{ u.departamento }})
+              </option>
+
+              <option [ngValue]="'crear'">➕ Crear nueva ubicación</option>
+            </select>
 
           </div>
         </div>

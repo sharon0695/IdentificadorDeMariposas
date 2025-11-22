@@ -5,6 +5,7 @@ import { EspecieService, Especie, ImagenesDetalladas, CaracteristicasMorfo } fro
 import { Router } from '@angular/router';
 import { ImageUploadService } from '../services/image-upload.service';
 import { UbicacionService } from '../services/ubicacion.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-crear-especie',
@@ -14,49 +15,39 @@ import { UbicacionService } from '../services/ubicacion.service';
   styleUrl: './crear-especie.css',
 })
 export class CrearEspecie {
+  ubicaciones: any[] = [];
+  selectedUbicacionId: string | null = null;
+  mostrarModalUbicacion = false;
+  isUploading = false;
+
   especie: any = {
-  nombreComun: "",
-  nombreCientifico: "",
-  familia: "",
-  tipoEspecie: "",
-  descripcion: "",
-  ubicacionRecoleccion: "",
-  imagenes: [],
-  imagenesDetalladas: {
-    alaIzquierda: "",
-    alaDerecha: "",
-    antenas: "",
-    cuerpo: "",
-    patas: "",
-    cabeza: ""
-  },
-  caracteristicasMorfo: {
-    color: "",
-    tamanoAlas: "",
-    formaAntenas: ""
-  }
-};
+    nombreComun: '',
+    nombreCientifico: '',
+    familia: '',
+    tipoEspecie: '',
+    descripcion: '',
+    fechaRegistro: new Date(),
+    caracteristicasMorfo: { color: '', tamanoAlas: null, formaAntenas: '' },
+    imagenes: [],
+    imagenesDetalladas: {},
+    registradoPor: '',         // setear con el user id si aplica
+    ubicacionRecoleccion: null // <-- aquí irá el ObjectId (string) antes de enviar
+  };
 
-isUploading = false;
-
-ubicaciones: any[] = [];
-mostrarNuevaUbicacion = false;
-
-nuevaUbicacion = {
-  localidad: '',
-  municipio: '',
-  departamento: '',
-  pais: '',
-  geolocalizacion: { latitud: 0, longitud: 0 },
-  ecosistema: ''
-};
-
+  nuevaUbicacion: any = {
+    localidad: '',
+    municipio: '',
+    departamento: '',
+    pais: '',
+    geolocalizacion: { latitud: 0, longitud: 0 },
+    ecosistema: ''
+  };
 
   constructor(
     private especieService: EspecieService,
-    private imageUploadService: ImageUploadService, 
     private router: Router,
-    private ubicacionService: UbicacionService
+    private ubicacionService: UbicacionService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -72,41 +63,70 @@ nuevaUbicacion = {
     });
   }
 
-  crearUbicacion() {
+  onUbicacionChange() {
+    console.log('selectedUbicacionId changed ->', this.selectedUbicacionId);
+
+    if (this.selectedUbicacionId === 'crear') {
+      this.mostrarModalUbicacion = true;
+      this.especie.ubicacionRecoleccion = null;
+      return;
+    }
+
+    if (this.selectedUbicacionId) {
+      this.especie.ubicacionRecoleccion = this.selectedUbicacionId;
+    } else {
+      this.especie.ubicacionRecoleccion = null;
+    }
+
+    console.log('especie.ubicacionRecoleccion ahora ->', this.especie.ubicacionRecoleccion);
+  }
+
+  guardarNuevaUbicacion() {
     this.ubicacionService.crear(this.nuevaUbicacion).subscribe({
       next: (res) => {
-        alert("Ubicación creada");
-        this.mostrarNuevaUbicacion = false;
+        console.log('nueva ubicacion creada ->', res);
+        this.mostrarModalUbicacion = false;
 
-        // Recargar lista
-        this.cargarUbicaciones();
-
-        // Seleccionar automáticamente la nueva
+        // añadir a la lista y seleccionar automáticamente
+        this.ubicaciones.push(res);
+        this.selectedUbicacionId = res.id;
         this.especie.ubicacionRecoleccion = res.id;
+
+        // limpiar nuevaUbicacion
+        this.nuevaUbicacion = { localidad: '', municipio: '', departamento: '', pais: '', geolocalizacion: {latitud:0,longitud:0}, ecosistema: '' };
+
+        console.log('ubicaciones actualizadas:', this.ubicaciones);
+        console.log('selectedUbicacionId asignado a:', this.selectedUbicacionId);
       },
-      error: (err) => console.error(err)
+      error: (err) => {
+        console.error('error creando ubicacion', err);
+      }
     });
   }
 
   guardar() {
-    this.isUploading = true;
+    if (!this.especie.ubicacionRecoleccion) {
+      this.especie.ubicacionRecoleccion = null;
+    }
 
-    const especieEnviar = {
-      ...this.especie,
-      fechaRegistro: new Date(),
-      registradoPor: localStorage.getItem("userId") || null,
-      ubicacionRecoleccion: this.especie.ubicacionRecoleccion
+    const payload = { ...this.especie,
+      ubicacionRecoleccion: this.especie.ubicacionRecoleccion,
+      registradoPor: this.authService.getUserId(),
+      
     };
 
-    this.especieService.createEspecie(especieEnviar).subscribe({
+    console.log('DATA A ENVIAR:', payload);
+
+    this.especieService.createEspecie(payload).subscribe({
       next: (res) => {
-        alert("Especie registrada con éxito");
-        this.isUploading = false;
+        console.log('especie creada', res);
+        alert('Especie guardada correctamente');
+        this.resetForm();
+        this.router.navigate(['/manejo-mariposas']);
       },
       error: (err) => {
-        console.error(err);
-        alert("Error al registrar la especie");
-        this.isUploading = false;
+        console.error('error al crear especie', err);
+        alert('Error al crear especie. Ver consola.');
       }
     });
   }
