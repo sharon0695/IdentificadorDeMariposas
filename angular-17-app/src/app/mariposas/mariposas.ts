@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DetalleEspecie } from '../detalle-especie/detalle-especie';
-import { EspecieService, Especie } from '../services/especie.service';
+import { Especie, EspecieService } from '../services/especie.service';
 import { AuthService } from '../services/auth.service';
-import { UbicacionService } from '../services/ubicacion.service';
+import { Ubicacion, UbicacionService } from '../services/ubicacion.service';
 import { Observacion, ObservacionesService } from '../services/observaciones.service';
 
 @Component({
@@ -24,6 +24,7 @@ export class Mariposas {
   especies: Especie[] = [];
   especiesFiltradas: Especie[] = [];
   especieSeleccionada: any = null;
+  ubicacionSeleccionada: Ubicacion | null = null;
   observaciones: Observacion[] = [];
 
   cargando = false;
@@ -92,10 +93,12 @@ export class Mariposas {
     console.log('Datos completos de la especie seleccionada:', esp);
     this.especieSeleccionada = esp;
     this.imgIndex = 0;
+    this.ubicacionSeleccionada = null;
 
     if (esp.ubicacionRecoleccion) {
       this.ubicacionService.getUbicacion(esp.ubicacionRecoleccion).subscribe({
         next: (ubicacion) => {
+          this.ubicacionSeleccionada = ubicacion;
           console.log('Datos de la ubicación:', ubicacion);
         },
         error: (err) => console.error('Error al obtener la ubicación:', err),
@@ -140,8 +143,7 @@ export class Mariposas {
     const url = this.router.serializeUrl(
       this.router.createUrlTree(['/mapa'], {
         queryParams: {
-          especieId: this.especieSeleccionada?.id || null,
-          departamento: this.especieSeleccionada.ubicacionRecoleccion
+          especieId: this.especieSeleccionada?.ubicacionRecoleccion
         }
       })
     );

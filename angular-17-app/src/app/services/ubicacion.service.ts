@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 export interface Ubicacion {
   id?: string; 
@@ -26,14 +26,42 @@ export class UbicacionService {
 
   constructor(private http: HttpClient) {}
 
+  /** Transformar MongoDB → Angular */
+  private mapUbicacion(u: any): Ubicacion {
+    return {
+      id: u._id || u.id,
+      localidad: u.localidad,
+      municipio: u.municipio,
+      departamento: u.departamento,
+      pais: u.pais,
+      geolocalizacion: u.geolocalizacion,
+      ecosistema: u.ecosistema
+    };
+  }
+
   /** Obtener todas las ubicaciones */
   listar(): Observable<Ubicacion[]> {
-    return this.http.get<Ubicacion[]>(this.apiUrl);
+    return this.http.get<Ubicacion[]>(this.apiUrl);}
+
+  getUbicaciones(): Observable<Ubicacion[]> {
+    return this.http.get<any[]>(this.apiUrl)
+      .pipe(map(list => list.map(u => this.mapUbicacion(u))));
   }
 
   /** Obtener una ubicación por ID */
   getUbicacion(id: string): Observable<Ubicacion> {
-    return this.http.get<Ubicacion>(`${this.apiUrl}/${id}`);
+    return this.http.get<any>(`${this.apiUrl}/${id}`)
+      .pipe(map(u => this.mapUbicacion(u)));
+  }
+
+  /** Obtener departamento y geolocalización por ID de ubicación */
+  getDepartamentoYGeolocalizacion(id: string): Observable<{ departamento?: string; geolocalizacion?: GeoLocalizacion }> {
+    return this.getUbicacion(id).pipe(
+      map(ubicacion => ({
+        departamento: ubicacion.departamento,
+        geolocalizacion: ubicacion.geolocalizacion
+      }))
+    );
   }
 
   crear(ubicacion: any) {

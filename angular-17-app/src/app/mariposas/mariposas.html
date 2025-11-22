@@ -34,6 +34,7 @@
                 <li class="list-group-item"><strong>Nombre:</strong> {{ especieSeleccionada?.nombreComun || '—' }}</li>
                 <li class="list-group-item"><strong>Científico:</strong> {{ especieSeleccionada?.nombreCientifico || '—' }}</li>
                 <li class="list-group-item"><strong>ID Ubicación:</strong> {{ especieSeleccionada?.ubicacionRecoleccion || '—' }}</li>
+                <li class="list-group-item"><strong>Departamento:</strong> {{ ubicacionSeleccionada?.departamento || '—' }}</li>
               </ul>              
               <div class="dato"><strong>Observaciones:</strong></div>
               <textarea [(ngModel)]="nuevaObservacion" class="obs-box"></textarea>
