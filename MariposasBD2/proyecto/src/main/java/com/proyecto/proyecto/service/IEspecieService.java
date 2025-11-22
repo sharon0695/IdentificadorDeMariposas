@@ -5,11 +5,12 @@ import java.util.Optional;
 
 import org.bson.types.ObjectId;
 
+import com.proyecto.proyecto.DTO.EspecieDTO;
 import com.proyecto.proyecto.DTO.MensajeResponse;
 import com.proyecto.proyecto.model.Especie;
 
 public interface IEspecieService {
-    List<Especie> findAll();
+    List<EspecieDTO> listar();
     Optional<Especie> findById(ObjectId id);
     MensajeResponse save(Especie especie);
     MensajeResponse delete(ObjectId id);

@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.proyecto.proyecto.DTO.EspecieDTO;
 import com.proyecto.proyecto.DTO.MensajeResponse;
 import com.proyecto.proyecto.model.Especie;
 import com.proyecto.proyecto.service.IEspecieService;
@@ -27,9 +27,9 @@ public class EspecieController {
 
     @Autowired IEspecieService especieService;
 
-    @GetMapping("/listar")
-    public ResponseEntity<List<Especie>> listar(){
-        return new ResponseEntity<>(especieService.findAll(), HttpStatus.OK);
+    @GetMapping("listar")
+    public List<EspecieDTO> listar() {
+        return especieService.listar();
     }
 
     @GetMapping("/{id}")

@@ -3,11 +3,13 @@ package com.proyecto.proyecto.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.proyecto.proyecto.DTO.EspecieDTO;
 import com.proyecto.proyecto.DTO.MensajeResponse;
 import com.proyecto.proyecto.model.Especie;
 import com.proyecto.proyecto.repository.IEspecieRepository;
@@ -18,9 +20,13 @@ public class EspecieServiceImpl implements IEspecieService {
     @Autowired IEspecieRepository especieRepository;    
 
     @Override
-    public List<Especie> findAll() {
-        return especieRepository.findAll();
+    public List<EspecieDTO> listar() {
+        return especieRepository.findAll()
+                .stream()
+                .map(EspecieDTO::new)
+                .collect(Collectors.toList());
     }
+
 
     @Override
     public Optional<Especie> findById(ObjectId id) {
