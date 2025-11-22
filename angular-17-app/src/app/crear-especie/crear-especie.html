@@ -1,8 +1,42 @@
+<style>
+  .btn-outline-primary-custom {
+    --bs-btn-color: #6A0DAD;
+    --bs-btn-border-color: #6A0DAD;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #6A0DAD;
+    --bs-btn-hover-border-color: #6A0DAD;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #5a0b94;
+    --bs-btn-active-border-color: #5a0b94;
+  }
+
+  #back-arrow-btn {
+    width: 50px;
+    height: 40px;
+    background-color: #6A0DAD;
+    border: none;
+    cursor: pointer;
+    clip-path: polygon(40% 0%, 40% 25%, 100% 25%, 100% 75%, 40% 75%, 40% 100%, 0% 50%);
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  #back-arrow-btn:hover {
+    background-color: #5a0b94;
+  }
+</style>
 <div class="container my-5">
   <div class="card shadow-lg border-0 rounded-4" style="background-color: #f8f0ff; border: 2px solid #9370db;">
-    <div class="card-body p-4 p-md-5">
+    <div class="card-body p-4 p-md-5 position-relative">
+      <button
+        id="back-arrow-btn"
+        type="button"
+        (click)="volver()"
+        class="position-absolute top-0 start-0 m-3"
+        style="z-index: 10;"
+        title="Volver atrás"
+      ></button>
       <h2 class="card-title text-center mb-4" style="color: #6A0DAD; font-weight: 700;">
-        <i class="bi bi-bug-fill me-2"></i>Registrar Nueva Especie
+        <i class="bi bi-bug-fill me-2"></i> Registrar Nueva Especie
       </h2>
 
       <form (ngSubmit)="guardar()" #especieForm="ngForm">
@@ -154,11 +188,7 @@
             style="color: #6A0DAD; border-color: #6A0DAD; background-color: transparent; font-weight: bold;"
             [disabled]="isUploading || especieForm.invalid"
           >
-            <span
-              class="spinner-border spinner-border-sm me-2"
-              role="status"
-              aria-hidden="true"
-            ></span> @if (isUploading) {
+            @if (isUploading) {
             <span>Guardando...</span>
             } @else {
             <span>Guardar Especie</span>
