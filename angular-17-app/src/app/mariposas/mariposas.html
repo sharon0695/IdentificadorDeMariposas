@@ -39,20 +39,30 @@
                 <button class="btn btn-circular btn-secondary-custom" (click)="irAMapa()">Ver en Mapa</button>
                 <button class="btn btn-circular btn-secondary-custom" (click)="irAReportes()">Reportes</button>
               </div>
-              <div class="backup-container">
-              <h2>Gestión de Copias de Seguridad</h2>
-
-              <button class="btn btn-primary" (click)="descargarBackup()">
-                Descargar copia de seguridad
-              </button>
-
-              <br><br>
-
-              <input type="file" (change)="seleccionarArchivo($event)" />
-              <button class="btn btn-success" (click)="restaurarBackup()">
-                Restaurar copia de seguridad
-              </button>
-            </div>
+              <!-- Sección de Backup -->
+              <div *ngIf="userRole === 'administrador'" class="mt-4 p-3 border rounded-3" style="border-color: #9370db !important;">
+                <h5 class="mb-3" style="color: #9370db; font-weight: 600;">Gestión de Backup</h5>
+                <div class="d-grid gap-2 backup-buttons">
+                  <button 
+                    class="btn btn-circular btn-secondary-custom"
+                    (click)="descargarBackup()">
+                    <i class="bi bi-download me-1"></i> Descargar Backup
+                  </button>
+                  <div class="mt-2">
+                    <input 
+                      type="file" 
+                      class="form-control form-control-sm" 
+                      (change)="seleccionarArchivo($event)" 
+                      style="border-color: #9370db;" />
+                  </div>
+                  <button 
+                    class="btn btn-circular btn-secondary-custom" 
+                    (click)="restaurarBackup()" 
+                    [disabled]="!archivoSeleccionado">
+                    <i class="bi bi-upload me-1"></i> Restaurar Backup
+                  </button>
+                </div>
+              </div>
               </div>
             </div>
             <!-- Contenedor Anidado (Paneles Central y Derecho) -->

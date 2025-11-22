@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ObservacionesService, Observacion } from '../services/observaciones.service';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-observaciones',
@@ -26,7 +28,8 @@ export class Observaciones {
   constructor(
     private route: ActivatedRoute, 
     private service: ObservacionesService,
-    private auth: AuthService
+    private auth: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -45,6 +48,11 @@ export class Observaciones {
 
     this.service.listarPorEspecie(this.especieId)
       .subscribe(resp => this.observaciones = resp);
+  }
+
+  
+  volver() {
+    this.router.navigate(['/manejo-mariposas']);
   }
 
   guardar() {

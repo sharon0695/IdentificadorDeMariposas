@@ -1,6 +1,29 @@
+<style>
+  #back-arrow-btn {
+    width: 50px;
+    height: 40px;
+    background-color: #6A0DAD;
+    border: none;
+    cursor: pointer;
+    clip-path: polygon(40% 0%, 40% 25%, 100% 25%, 100% 75%, 40% 75%, 40% 100%, 0% 50%);
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  #back-arrow-btn:hover {
+    background-color: #5a0b94;
+  }
+</style>
 <div class="container my-5">
   <div class="card shadow-lg border-0 rounded-4" style="background-color: #f8f0ff; border: 2px solid #9370db;">
-    <div class="card-body p-4 p-md-5">
+    <div class="card-body p-4 p-md-5 position-relative">
+            <button
+        id="back-arrow-btn"
+        type="button"
+        (click)="volver()"
+        class="position-absolute top-0 start-0 m-3"
+        style="z-index: 10;"
+        title="Volver atrás"
+      ></button>
       <h2 class="card-title text-center mb-5" style="color: #6A0DAD; font-weight: 700;">
         <i class="bi bi-file-earmark-bar-graph-fill me-2"></i>Generación de Reportes
       </h2>

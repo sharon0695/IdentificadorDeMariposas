@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-reportes',
@@ -21,7 +23,7 @@ export class Reportes {
   tipos = ['Diurna', 'Nocturna']; 
   familias = ['Nymphalidae', 'Papilionidae', 'Pieridae', 'Lycaenidae', 'Hesperiidae'];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router:Router,) {}
 
   generarReporteGeneral() {
 
@@ -64,6 +66,11 @@ export class Reportes {
       this.descargarArchivo(blob, `reporte_familia_${this.tipoSeleccionado}.pdf`);
     });
   }
+
+    volver() {
+    this.router.navigate(['/manejo-mariposas']);
+  }
+
 
   descargarReporteCompleto() {
     const url = `${this.apiUrl}/reporte/todo`;
