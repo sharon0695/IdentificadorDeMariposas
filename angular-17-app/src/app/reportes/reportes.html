@@ -1,0 +1,120 @@
+<div class="container my-5">
+  <div class="card shadow-lg border-0 rounded-4" style="background-color: #f8f0ff; border: 2px solid #9370db;">
+    <div class="card-body p-4 p-md-5">
+      <h2 class="card-title text-center mb-5" style="color: #6A0DAD; font-weight: 700;">
+        <i class="bi bi-file-earmark-bar-graph-fill me-2"></i>Generación de Reportes
+      </h2>
+
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0 border rounded-3" style="border-color: #9370db !important;">
+          
+          <thead style="background-color: #9370db;">
+            <tr>
+              <th scope="col" style="color: white;">Tipo de Reporte</th>
+              <th scope="col" style="color: white; width: 40%;">Parámetros de Filtrado</th>
+              <th scope="col" style="color: white; width: 15%;">Acción</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td style="color: #6A0DAD;">Reporte general (por fechas)</td>
+              <td>
+                <div class="d-flex flex-column flex-md-row align-items-center gap-2">
+                  <label class="form-label mb-0 fw-bold">Inicio:</label>
+                  <input 
+                    type="date" 
+                    class="form-control form-control-sm rounded-pill" 
+                    [(ngModel)]="fechaInicio"
+                    style="border-color: #9370db;"
+                  >
+                  <label class="form-label mb-0 fw-bold">Fin:</label>
+                  <input 
+                    type="date" 
+                    class="form-control form-control-sm rounded-pill" 
+                    [(ngModel)]="fechaFin"
+                    style="border-color: #9370db;"
+                  >
+                </div>
+              </td>
+              <td>
+                <button 
+                  (click)="generarReporteGeneral()" 
+                  class="btn btn-sm rounded-pill"
+                  [disabled]="!fechaInicio || !fechaFin"
+                  style="color: #6A0DAD; border-color: #6A0DAD; background-color: transparent; font-weight: bold;"
+                >
+                  <i class="bi bi-download me-1"></i> Descargar
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="color: #6A0DAD;">Reporte por Tipo de Especie</td>
+              <td>
+                <select 
+                  class="form-select form-select-sm rounded-pill" 
+                  [(ngModel)]="tipoSeleccionado"
+                  style="border-color: #9370db;"
+                >
+                  <option value="">Seleccione tipo...</option>
+                  <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
+                </select>
+              </td>
+              <td>
+                <button 
+                  (click)="generarReportePorTipo()" 
+                  class="btn btn-sm rounded-pill"
+                  [disabled]="!tipoSeleccionado"
+                  style="color: #6A0DAD; border-color: #6A0DAD; background-color: transparent; font-weight: bold;"
+                >
+                  <i class="bi bi-download me-1"></i> Descargar
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="color: #6A0DAD;">Reporte por Familia de Especie</td>
+              <td>
+                <select 
+                  class="form-select form-select-sm rounded-pill" 
+                  [(ngModel)]="tipoSeleccionado"
+                  style="border-color: #9370db;"
+                >
+                  <option value="">Seleccione familia...</option>
+                  <option *ngFor="let tipo of familias" [value]="tipo">{{ tipo }}</option>
+                </select>
+              </td>
+              <td>
+                <button 
+                  (click)="generarReportePorFamilia()" 
+                  class="btn btn-sm rounded-pill"
+                  [disabled]="!tipoSeleccionado"
+                  style="color: #6A0DAD; border-color: #6A0DAD; background-color: transparent; font-weight: bold;"
+                >
+                  <i class="bi bi-download me-1"></i> Descargar
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="color: #6A0DAD;">Reporte General Completo</td>
+              <td class="text-muted">— Sin Parámetros —</td>
+              <td>
+                <button 
+                  (click)="descargarReporteCompleto()" 
+                  class="btn btn-sm rounded-pill"
+                  style="color: #6A0DAD; border-color: #6A0DAD; background-color: transparent; font-weight: bold;"
+                >
+                  <i class="bi bi-download me-1"></i> Descargar
+                </button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

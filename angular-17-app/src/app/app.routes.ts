@@ -5,6 +5,7 @@ import { Mariposas } from './mariposas/mariposas';
 import { CrearEspecie } from './crear-especie/crear-especie';
 import { Observaciones } from './observaciones/observaciones';
 import { MapaEspecies } from './mapa-especies/mapa-especies';
+import { Reportes } from './reportes/reportes';
 
 
 
@@ -21,4 +22,5 @@ export const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: Login },
     { path: 'sing-up', component: SingUp },
+    { path: 'reportes', component: Reportes }
 ];

@@ -11,4 +11,5 @@ import com.proyecto.proyecto.model.Especie;
 public interface IEspecieRepository extends MongoRepository<Especie, ObjectId> { 
     List<Especie> findByFechaRegistroBetween(Date inicio, Date fin);
     List<Especie> findByTipoEspecieIgnoreCase(String tipoEspecie);
+    List<Especie> findByFamiliaIgnoreCase(String familia);
 }

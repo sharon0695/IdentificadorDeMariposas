@@ -116,5 +116,21 @@ public class EspecieController {
                 .headers(headers)
                 .body(pdf);
     }
+    @GetMapping("/reporte/familia/{familia}")
+    public ResponseEntity<byte[]> generarReportePorFamilia(@PathVariable String familia) {
+
+        byte[] pdf = especieService.generarReportePorFamilia(familia);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData(
+                "attachment",
+                "reporte_especies_" + familia + ".pdf"
+        );
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(pdf);
+    }
 
 }

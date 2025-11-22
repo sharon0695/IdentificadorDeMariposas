@@ -154,6 +154,10 @@ export class Mariposas {
     window.open(url, '_blank');
   }
 
+  irAReportes() {
+    this.router.navigate(['/reportes']);
+  }
+
   ngOnChanges() {
     this.filtrar();
   }

@@ -290,4 +290,83 @@ public class EspecieServiceImpl implements IEspecieService {
         tabla.addCell(new Phrase(label, bold));
         tabla.addCell(value != null ? value : "—");
     }
+
+    @Override
+    public byte[] generarReportePorFamilia(String familia) {
+
+        List<Especie> especies = especieRepository.findByFamiliaIgnoreCase(familia);
+
+        if (especies.isEmpty()) {
+            throw new RuntimeException("No hay especies de la familia: " + familia);
+        }
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        try {
+            Document document = new Document(PageSize.A4);
+            PdfWriter.getInstance(document, out);
+            document.open();
+
+            Font tituloFont = new Font(Font.HELVETICA, 20, Font.BOLD);
+
+            Paragraph titulo = new Paragraph(
+                "Reporte de Especies - Familia: " + familia.toUpperCase() + "\n\n",
+                tituloFont
+            );
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            titulo.setSpacingAfter(20);
+            document.add(titulo);
+
+            for (Especie especie : especies) {
+
+                Paragraph nombre = new Paragraph(
+                        especie.getNombreCientifico(),
+                        new Font(Font.HELVETICA, 16, Font.BOLD)
+                );
+                nombre.setSpacingAfter(10);
+                document.add(nombre);
+
+                PdfPTable tabla = new PdfPTable(2);
+                tabla.setWidthPercentage(100);
+                tabla.setSpacingAfter(15);
+
+                agregarFila(tabla, "Nombre Científico:", especie.getNombreCientifico());
+                agregarFila(tabla, "Nombre Común:", especie.getNombreComun());
+                agregarFila(tabla, "Familia:", especie.getFamilia());
+                agregarFila(tabla, "Descripción:", especie.getDescripcion());
+                agregarFila(tabla, "Fecha de Registro:",
+                        especie.getFechaRegistro() != null ? especie.getFechaRegistro().toString() : "No registrada");
+                agregarFila(tabla, "Registrado por:",
+                        especie.getRegistradoPor() != null ? especie.getRegistradoPor().toHexString() : "—");
+
+                document.add(tabla);
+
+                if (especie.getCaracteristicasMorfo() != null) {
+                    Paragraph sub = new Paragraph("Características Morfológicas",
+                            new Font(Font.HELVETICA, 14, Font.BOLD));
+                    sub.setSpacingAfter(5);
+                    document.add(sub);
+
+                    PdfPTable morfo = new PdfPTable(2);
+                    morfo.setWidthPercentage(100);
+
+                    agregarFila(morfo, "Color:", especie.getCaracteristicasMorfo().getColor());
+                    agregarFila(morfo, "Tamaño Alas:", especie.getCaracteristicasMorfo().getTamanoAlas());
+                    agregarFila(morfo, "Forma Antenas:", especie.getCaracteristicasMorfo().getFormaAntenas());
+
+                    morfo.setSpacingAfter(15);
+                    document.add(morfo);
+                }
+
+                document.add(new Paragraph("-------------------------------------------------------------\n\n"));
+            }
+
+            document.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return out.toByteArray();
+    }
 }

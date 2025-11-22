@@ -21,4 +21,5 @@ public interface IEspecieService {
     Especie update(String id, Especie especieActualizada);
     byte[] generarReporteEspecies(LocalDate fechaInicio, LocalDate fechaFin);
     byte[] generarReportePorTipo(String tipoEspecie);
+    byte[] generarReportePorFamilia(String familia);
 }

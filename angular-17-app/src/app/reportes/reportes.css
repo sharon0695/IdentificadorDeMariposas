@@ -1,0 +1,35 @@
+.contenedor-reportes {
+  width: 90%;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.tabla-reportes {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.tabla-reportes th,
+.tabla-reportes td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+button {
+  padding: 6px 14px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background: #125aa0;
+}
+
+input, select {
+  margin: 5px;
+}
