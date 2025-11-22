@@ -8,5 +8,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import com.proyecto.proyecto.model.Observacion;
 
 public interface IObservacionRepository extends MongoRepository<Observacion, ObjectId> { 
-    List<Observacion> findByEspecieId(String especieId);
+    List<Observacion> findByEspecieId(ObjectId especieId);
 }
+

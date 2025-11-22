@@ -46,9 +46,19 @@ public class ObservacionController {
     }
 
     @GetMapping("/especie/{id}")
-    public List<Observacion> listarPorEspecie(@PathVariable String id) {
-        return observacionRepository.findByEspecieId(id);
+    public List<ObservacionDTO> listarPorEspecie(@PathVariable ObjectId id) {
+        return observacionRepository.findByEspecieId(id)
+                .stream()
+                .map(obs -> new ObservacionDTO(
+                        obs.getIdAsString(),
+                        obs.getEspecieIdAsString(),
+                        obs.getUsuarioIdAsString(),
+                        obs.getComentario(),
+                        obs.getFecha()
+                ))
+                .toList();
     }
+
 
     @GetMapping("/{id}")
     public Observacion obtenerPorId(@PathVariable ObjectId id) {

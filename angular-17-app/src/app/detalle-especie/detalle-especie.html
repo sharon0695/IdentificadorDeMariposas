@@ -3,17 +3,6 @@
   <h2>{{ especie.nombreComun }}</h2>
   <h4><i>{{ especie.nombreCientifico }}</i></h4>
 
-  <!-- Imagen principal -->
-  <img 
-    *ngIf="especie.imagenes?.length; else noPhoto"
-    class="img-principal"
-    [src]="especie.imagenes?.[0]"
-  />
-
-  <ng-template #noPhoto>
-    <img class="img-principal" src="assets/default-mariposa.png">
-  </ng-template>
-
   <p><strong>Descripción:</strong> {{ especie.descripcion }}</p>
   <p><strong>Familia:</strong> {{ especie.familia }}</p>
   <p><strong>Tipo:</strong> {{ especie.tipoEspecie }}</p>
