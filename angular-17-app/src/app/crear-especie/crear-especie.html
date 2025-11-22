@@ -1,69 +1,165 @@
-<h2>Registrar Nueva Especie</h2>
+<div class="container my-5">
+  <div class="card shadow-lg border-0 rounded-4" style="background-color: #f8f0ff; border: 2px solid #9370db;">
+    <div class="card-body p-4 p-md-5">
+      <h2 class="card-title text-center mb-4" style="color: #6A0DAD; font-weight: 700;">
+        <i class="bi bi-bug-fill me-2"></i>Registrar Nueva Especie
+      </h2>
 
-<div class="formulario">
-  <!-- Sección de Información General -->
-  <h3>Información General</h3>
-  <div class="form-grid">
-    <div>
-      <label>Nombre común</label>
-      <input [(ngModel)]="especie.nombreComun">
-    </div>
-    <div>
-      <label>Nombre científico</label>
-      <input [(ngModel)]="especie.nombreCientifico">
-    </div>
-    <div>
-      <label>Familia</label>
-      <input [(ngModel)]="especie.familia">
-    </div>
-    <div>
-      <label>Tipo de especie</label>
-      <input [(ngModel)]="especie.tipoEspecie">
+      <form (ngSubmit)="guardar()" #especieForm="ngForm">
+        <div class="mb-4 p-3 border rounded-3" style="border-color: #9370db !important;">
+          <h3 class="mb-3" style="color: #9370db; font-weight: 600;">Información General</h3>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="nombreComun" class="form-label">Nombre común</label>
+              <input
+                id="nombreComun"
+                class="form-control rounded-pill"
+                [(ngModel)]="especie.nombreComun"
+                name="nombreComun"
+                required
+                style="border-color: #9370db;"
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="nombreCientifico" class="form-label">Nombre científico</label>
+              <input
+                id="nombreCientifico"
+                class="form-control rounded-pill"
+                [(ngModel)]="especie.nombreCientifico"
+                name="nombreCientifico"
+                required
+                style="border-color: #9370db;"
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="familia" class="form-label">Familia</label>
+              <input
+                id="familia"
+                class="form-control rounded-pill"
+                [(ngModel)]="especie.familia"
+                name="familia"
+                required
+                style="border-color: #9370db;"
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="tipoEspecie" class="form-label">Tipo de especie</label>
+              <input
+                id="tipoEspecie"
+                class="form-control rounded-pill"
+                [(ngModel)]="especie.tipoEspecie"
+                name="tipoEspecie"
+                required
+                style="border-color: #9370db;"
+              />
+            </div>
+          </div>
+          <div class="mt-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea
+              id="descripcion"
+              class="form-control rounded-3"
+              rows="3"
+              [(ngModel)]="especie.descripcion"
+              name="descripcion"
+              style="border-color: #9370db;"
+            ></textarea>
+          </div>
+          <div class="mt-3">
+            <label for="ubicacionRecoleccion" class="form-label">Ubicación de recolección</label>
+            <label>Ubicación de Recolección</label>
+              <select [(ngModel)]="especie.ubicacionRecoleccion">
+                <option [value]="null">Seleccione una ubicación</option>
+                
+                <option *ngFor="let u of ubicaciones" [value]="u.id">
+                  {{ u.localidad }} - {{ u.municipio }} ({{ u.departamento }})
+                </option>
+
+                <option value="crear">+ Crear nueva ubicación</option>
+              </select>
+
+          </div>
+        </div>
+
+        <div class="mb-4 p-3 border rounded-3" style="border-color: #9370db !important;">
+          <h3 class="mb-3" style="color: #9370db; font-weight: 600;">Características Morfológicas</h3>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label for="color" class="form-label">Color predominante</label>
+              <input
+                id="color"
+                class="form-control rounded-pill"
+                [(ngModel)]="especie.caracteristicasMorfo.color"
+                name="color"
+                style="border-color: #9370db;"
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="tamanoAlas" class="form-label">Tamaño de alas (mm)</label>
+              <input
+                id="tamanoAlas"
+                type="number"
+                class="form-control rounded-pill"
+                [(ngModel)]="especie.caracteristicasMorfo.tamanoAlas"
+                name="tamanoAlas"
+                style="border-color: #9370db;"
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="formaAntenas" class="form-label">Forma de las antenas</label>
+              <input
+                id="formaAntenas"
+                class="form-control rounded-pill"
+                [(ngModel)]="especie.caracteristicasMorfo.formaAntenas"
+                name="formaAntenas"
+                style="border-color: #9370db;"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-4 p-3 border rounded-3" style="border-color: #9370db !important;">
+          <h3 class="mb-3" style="color: #9370db; font-weight: 600;">Imágenes</h3>
+          <div class="mb-3">
+            <label for="imagenes" class="form-label">Imágenes de la especie (Múltiples)</label>
+            <input
+              id="imagenes"
+              type="file"
+              class="form-control"
+              (change)="onFileSelected($event)"
+              multiple
+              accept="image/*"
+            />
+          </div>
+
+          <p class="mt-4" style="color: #9370db; font-weight: 600;">**Imágenes Detalladas (Opcional)**</p>
+          <div class="row g-3">
+            <div class="col-md-4"><label for="alaIzquierda" class="form-label">Ala Izquierda</label><input id="alaIzquierda" type="file" class="form-control" (change)="onDetailedFileSelected($event, 'alaIzquierda')" accept="image/*" /></div>
+            <div class="col-md-4"><label for="alaDerecha" class="form-label">Ala Derecha</label><input id="alaDerecha" type="file" class="form-control" (change)="onDetailedFileSelected($event, 'alaDerecha')" accept="image/*" /></div>
+            <div class="col-md-4"><label for="antenas" class="form-label">Antenas</label><input id="antenas" type="file" class="form-control" (change)="onDetailedFileSelected($event, 'antenas')" accept="image/*" /></div>
+            <div class="col-md-4"><label for="cuerpo" class="form-label">Cuerpo</label><input id="cuerpo" type="file" class="form-control" (change)="onDetailedFileSelected($event, 'cuerpo')" accept="image/*" /></div>
+            <div class="col-md-4"><label for="patas" class="form-label">Patas</label><input id="patas" type="file" class="form-control" (change)="onDetailedFileSelected($event, 'patas')" accept="image/*" /></div>
+            <div class="col-md-4"><label for="cabeza" class="form-label">Cabeza</label><input id="cabeza" type="file" class="form-control" (change)="onDetailedFileSelected($event, 'cabeza')" accept="image/*" /></div>
+          </div>
+        </div>
+
+        <div class="d-grid gap-2 mt-4">
+          <button
+            type="submit"
+            class="btn btn-lg rounded-pill"
+            style="color: #6A0DAD; border-color: #6A0DAD; background-color: transparent; font-weight: bold;"
+            [disabled]="isUploading || especieForm.invalid"
+          >
+            <span
+              *ngIf="isUploading"
+              class="spinner-border spinner-border-sm me-2"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            {{ isUploading ? 'Guardando...' : 'Guardar Especie' }}
+          </button>
+        </div>
+      </form>
     </div>
   </div>
-  <label>Descripción</label>
-  <textarea [(ngModel)]="especie.descripcion"></textarea>
-
-  <label>Ubicación de recolección</label>
-  <input [(ngModel)]="especie.ubicacionRecoleccion" placeholder="Ej: Neiva, Huila, Colombia">
-
-  <!-- Sección de Características Morfológicas -->
-  <h3>Características Morfológicas</h3>
-  <div class="form-grid">
-    <div>
-      <label>Color predominante</label>
-      <input [(ngModel)]="especie.caracteristicasMorfo.color">
-    </div>
-    <div>
-      <label>Tamaño de alas (mm)</label>
-      <input type="number" [(ngModel)]="especie.caracteristicasMorfo.tamanoAlas">
-    </div>
-    <div>
-      <label>Forma de las antenas</label>
-      <input [(ngModel)]="especie.caracteristicasMorfo.formaAntenas">
-    </div>
-  </div>
-
-  <!-- Sección de Imágenes -->
-  <h3>Imágenes</h3>
-  <label>Imágenes de la especie</label>
-  <input 
-    type="file" 
-    (change)="onFileSelected($event)" 
-    multiple 
-    accept="image/*"> 
-
-  <label>Imágenes Detalladas (Opcional)</label>
-  <div class="form-grid">
-    <div><label>Ala Izquierda</label><input type="file" (change)="onDetailedFileSelected($event, 'alaIzquierda')" accept="image/*"></div>
-    <div><label>Ala Derecha</label><input type="file" (change)="onDetailedFileSelected($event, 'alaDerecha')" accept="image/*"></div>
-    <div><label>Antenas</label><input type="file" (change)="onDetailedFileSelected($event, 'antenas')" accept="image/*"></div>
-    <div><label>Cuerpo</label><input type="file" (change)="onDetailedFileSelected($event, 'cuerpo')" accept="image/*"></div>
-    <div><label>Patas</label><input type="file" (change)="onDetailedFileSelected($event, 'patas')" accept="image/*"></div>
-    <div><label>Cabeza</label><input type="file" (change)="onDetailedFileSelected($event, 'cabeza')" accept="image/*"></div>
-  </div>
-
-  <button (click)="guardar()" class="btn-save" [disabled]="isUploading">
-    {{ isUploading ? 'Guardando...' : 'Guardar' }}
-  </button>
 </div>

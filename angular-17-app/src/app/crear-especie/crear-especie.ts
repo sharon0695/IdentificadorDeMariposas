@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { EspecieService, Especie, ImagenesDetalladas, CaracteristicasMorfo } from '../services/especie.service';
 import { Router } from '@angular/router';
 import { ImageUploadService } from '../services/image-upload.service';
+import { UbicacionService } from '../services/ubicacion.service';
 
 @Component({
   selector: 'app-crear-especie',
@@ -13,102 +14,130 @@ import { ImageUploadService } from '../services/image-upload.service';
   styleUrl: './crear-especie.css',
 })
 export class CrearEspecie {
-  especie: Especie = {
-    nombreCientifico: '',
-    nombreComun: '',
-    familia: '',
-    tipoEspecie: '',
-    descripcion: '',
-    imagenes: [],
-    imagenesDetalladas: {} as ImagenesDetalladas,
-    caracteristicasMorfo: {} as CaracteristicasMorfo,
-    ubicacionRecoleccion: '',
-    registradoPor: '' 
-  };
+  especie: any = {
+  nombreComun: "",
+  nombreCientifico: "",
+  familia: "",
+  tipoEspecie: "",
+  descripcion: "",
+  ubicacionRecoleccion: "",
+  imagenes: [],
+  imagenesDetalladas: {
+    alaIzquierda: "",
+    alaDerecha: "",
+    antenas: "",
+    cuerpo: "",
+    patas: "",
+    cabeza: ""
+  },
+  caracteristicasMorfo: {
+    color: "",
+    tamanoAlas: "",
+    formaAntenas: ""
+  }
+};
 
-  archivosSeleccionados: File[] = [];
-  archivosDetallados: {
-    alaIzquierda?: File;
-    alaDerecha?: File;
-    antenas?: File;
-    cuerpo?: File;
-    patas?: File;
-    cabeza?: File;
-  } = {};
+isUploading = false;
 
-  isUploading = false;
+ubicaciones: any[] = [];
+mostrarNuevaUbicacion = false;
+
+nuevaUbicacion = {
+  localidad: '',
+  municipio: '',
+  departamento: '',
+  pais: '',
+  geolocalizacion: { latitud: 0, longitud: 0 },
+  ecosistema: ''
+};
+
 
   constructor(
     private especieService: EspecieService,
     private imageUploadService: ImageUploadService, 
-    private router: Router
+    private router: Router,
+    private ubicacionService: UbicacionService
   ) {}
 
-  async guardar() {
-    if (this.isUploading) {
-      return;
-    }
+  ngOnInit() {
+    this.cargarUbicaciones();
+  }
 
+  cargarUbicaciones() {
+    this.ubicacionService.listar().subscribe({
+      next: (data) => {
+        this.ubicaciones = data;
+      },
+      error: (err) => console.error(err)
+    });
+  }
+
+  crearUbicacion() {
+    this.ubicacionService.crear(this.nuevaUbicacion).subscribe({
+      next: (res) => {
+        alert("Ubicación creada");
+        this.mostrarNuevaUbicacion = false;
+
+        // Recargar lista
+        this.cargarUbicaciones();
+
+        // Seleccionar automáticamente la nueva
+        this.especie.ubicacionRecoleccion = res.id;
+      },
+      error: (err) => console.error(err)
+    });
+  }
+
+  guardar() {
     this.isUploading = true;
 
-    try {
-      if (this.archivosSeleccionados.length > 0) {
-        // 1. Subir imágenes generales
-        const uploadPromises = this.archivosSeleccionados.map(file => 
-          this.imageUploadService.uploadImage(file)
-        );
-        const imageUrls = await Promise.all(uploadPromises);
-        this.especie.imagenes = imageUrls;
+    const especieEnviar = {
+      ...this.especie,
+      fechaRegistro: new Date(),
+      registradoPor: localStorage.getItem("userId") || null,
+      ubicacionRecoleccion: this.especie.ubicacionRecoleccion
+    };
+
+    this.especieService.createEspecie(especieEnviar).subscribe({
+      next: (res) => {
+        alert("Especie registrada con éxito");
+        this.isUploading = false;
+      },
+      error: (err) => {
+        console.error(err);
+        alert("Error al registrar la especie");
+        this.isUploading = false;
       }
-
-      // 2. Subir imágenes detalladas
-      const detailedUploadPromises = Object.entries(this.archivosDetallados)
-        .map(async ([parte, file]) => {
-          if (file) {
-            const url = await this.imageUploadService.uploadImage(file);
-            return { parte, url };
-          }
-          return null;
-        });
-
-      const detailedImageResults = await Promise.all(detailedUploadPromises);
-      
-      detailedImageResults.forEach(result => {
-        if (result) {
-          // Asignación segura de tipos
-          (this.especie.imagenesDetalladas as any)[result.parte] = result.url;
-        }
-      });
-
-      // 2. Una vez que las imágenes están subidas y las URLs obtenidas, guardar la especie.
-      this.especieService.createEspecie(this.especie).subscribe({
-        next: () => {
-          alert('Especie creada correctamente');
-          this.resetForm();
-        },
-        error: (err) => {
-          console.error('Error al crear la especie:', err);
-          alert('Hubo un error al crear la especie.');
-          this.isUploading = false;
-        }
-      });
-    } catch (error) {
-      console.error('Error al subir las imágenes:', error);
-      alert('Hubo un error al subir las imágenes.');
-      this.isUploading = false;
-    }
+    });
   }
+
 
   onFileSelected(event: any) {
-    this.archivosSeleccionados = Array.from(event.target.files);
-  }
+    const files = event.target.files;
 
-  onDetailedFileSelected(event: any, parte: keyof ImagenesDetalladas) {
-    const file = event.target.files[0];
-    if (file) {
-      this.archivosDetallados[parte] = file;
+    for (let file of files) {
+      this.uploadImage(file).then(url => {
+        this.especie.imagenes.push(url);
+      });
     }
   }
+
+  uploadImage(file: File): Promise<string> {
+    return new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  onDetailedFileSelected(event: any, tipo: string) {
+    const file = event.target.files[0];
+
+    this.uploadImage(file).then(url => {
+      this.especie.imagenesDetalladas[tipo] = url;
+    });
+  }
+
 
   volver() {
     this.router.navigate(['/manejo-mariposas']);
@@ -116,9 +145,6 @@ export class CrearEspecie {
 
   private resetForm() {
     this.especie = { nombreCientifico: '', nombreComun: '', familia: '', tipoEspecie: '', descripcion: '', imagenes: [], imagenesDetalladas: {} as ImagenesDetalladas, caracteristicasMorfo: {} as CaracteristicasMorfo, ubicacionRecoleccion: '', registradoPor: '' };
-    this.archivosSeleccionados = [];
-    this.archivosDetallados = {};
     this.isUploading = false;
-    // Si usas un <form>, también puedes resetearlo nativamente.
   }
 }

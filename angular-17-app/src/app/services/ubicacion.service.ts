@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Ubicacion {
-  id?: string; // Mapeado desde _id
+  id?: string; 
   localidad?: string;
   municipio?: string;
   departamento?: string;
@@ -27,7 +27,7 @@ export class UbicacionService {
   constructor(private http: HttpClient) {}
 
   /** Obtener todas las ubicaciones */
-  getUbicaciones(): Observable<Ubicacion[]> {
+  listar(): Observable<Ubicacion[]> {
     return this.http.get<Ubicacion[]>(this.apiUrl);
   }
 
@@ -36,4 +36,7 @@ export class UbicacionService {
     return this.http.get<Ubicacion>(`${this.apiUrl}/${id}`);
   }
 
+  crear(ubicacion: any) {
+    return this.http.post<any>(this.apiUrl, ubicacion);
+  }
 }
