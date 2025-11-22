@@ -69,7 +69,7 @@ export class Reportes {
     const url = `${this.apiUrl}/reporte/todo`;
 
     this.http.get(url, { responseType: 'blob' }).subscribe(blob => {
-      this.descargarArchivo(blob, `reporte_completo.pdf`);
+      this.descargarArchivo(blob, `reporte_especies_completo.pdf`);
     });
   }
 

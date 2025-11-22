@@ -369,4 +369,58 @@ public class EspecieServiceImpl implements IEspecieService {
 
         return out.toByteArray();
     }
+    
+    @Override
+    public byte[] generarReporteCompleto() {
+
+        List<Especie> especies = especieRepository.findAll();
+
+        if (especies.isEmpty()) {
+            throw new RuntimeException("No hay especies registradas.");
+        }
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        try {
+            Document document = new Document(PageSize.A4);
+            PdfWriter.getInstance(document, out);
+            document.open();
+
+            // Título
+            Font tituloFont = new Font(Font.HELVETICA, 20, Font.BOLD);
+            Paragraph titulo = new Paragraph("Reporte Completo de Todas las Especies\n\n", tituloFont);
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            titulo.setSpacingAfter(20);
+            document.add(titulo);
+
+            // Tabla general
+            PdfPTable tabla = new PdfPTable(5);
+            tabla.setWidthPercentage(100);
+            tabla.setWidths(new float[]{3, 3, 3, 5, 3});
+
+            agregarCeldaHeader(tabla, "Nombre Científico");
+            agregarCeldaHeader(tabla, "Nombre Común");
+            agregarCeldaHeader(tabla, "Familia");
+            agregarCeldaHeader(tabla, "Descripción");
+            agregarCeldaHeader(tabla, "Tipo");
+
+            for (Especie e : especies) {
+                tabla.addCell(e.getNombreCientifico());
+                tabla.addCell(e.getNombreComun());
+                tabla.addCell(e.getFamilia() != null ? e.getFamilia() : "—");
+                tabla.addCell(e.getDescripcion() != null ? e.getDescripcion() : "—");
+                tabla.addCell(e.getTipoEspecie() != null ? e.getTipoEspecie() : "—");
+            }
+
+            document.add(tabla);
+            document.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error generando PDF");
+        }
+
+        return out.toByteArray();
+    }
+
 }

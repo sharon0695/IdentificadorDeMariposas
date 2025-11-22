@@ -22,4 +22,5 @@ public interface IEspecieService {
     byte[] generarReporteEspecies(LocalDate fechaInicio, LocalDate fechaFin);
     byte[] generarReportePorTipo(String tipoEspecie);
     byte[] generarReportePorFamilia(String familia);
+    byte[] generarReporteCompleto();
 }

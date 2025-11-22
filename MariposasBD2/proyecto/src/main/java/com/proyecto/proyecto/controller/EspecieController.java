@@ -133,4 +133,17 @@ public class EspecieController {
                 .body(pdf);
     }
 
+    @GetMapping("/reporte/todo")
+    public ResponseEntity<byte[]> generarReporteCompleto() {
+
+        byte[] pdf = especieService.generarReporteCompleto();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment", "reporte_especies_completo.pdf");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(pdf);
+    }
 }
