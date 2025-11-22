@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 
+import com.proyecto.proyecto.DTO.MensajeResponse;
 import com.proyecto.proyecto.model.Ubicacion;
 
 public interface IUbicacionService {
-    Ubicacion guardar(Ubicacion ubicacion);
+    MensajeResponse guardar(Ubicacion ubicacion);
+    MensajeResponse actualizar(String id, Ubicacion nuevaUbicacion);
     List<Ubicacion> listar();
     Ubicacion obtenerPorId(ObjectId id);
-    void eliminar(ObjectId id);
+    MensajeResponse eliminar(ObjectId id);
 }

@@ -39,7 +39,7 @@ public class Especie {
     private Date fechaRegistro;
     @Field("registrado_por") 
     private ObjectId registradoPor; 
-    @JsonProperty("id")
+    @JsonProperty("ubicacion_recoleccion")
     public String getUbicacionRecoleccionAsString(){
         return ubicacionRecoleccion != null ? ubicacionRecoleccion.toHexString():null;
     }
@@ -47,7 +47,7 @@ public class Especie {
     public String getIdAsString(){
         return id != null ? id.toHexString():null;
     }
-    @JsonProperty("id")
+    @JsonProperty("registrado_por")
     public String getRegistradoPorAsString(){
         return registradoPor != null ? registradoPor.toHexString():null;
     }

@@ -27,6 +27,16 @@ public class Observacion {
         return id != null ? id.toHexString():null;
     }
 
+    @JsonProperty("especie_id")
+    public String getEspecieIdAsString(){
+        return especieId != null ? especieId.toHexString():null;
+    }
+
+    @JsonProperty("usuario_id")
+    public String getUsuarioIdAsString(){
+        return usuarioId != null ? usuarioId.toHexString():null;
+    }
+
     // Getters y Setters
     public ObjectId getId() {
         return id;

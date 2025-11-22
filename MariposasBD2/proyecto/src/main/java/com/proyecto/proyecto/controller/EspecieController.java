@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.proyecto.proyecto.DTO.MensajeResponse;
 import com.proyecto.proyecto.model.Especie;
 import com.proyecto.proyecto.service.IEspecieService;
 
@@ -38,9 +40,18 @@ public class EspecieController {
     }
 
     @PostMapping
-    public Especie create(@RequestBody Especie especie) {
+    public MensajeResponse create(@RequestBody Especie especie) {
         return especieService.save(especie);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateEspecie(
+        @PathVariable String id,
+        @RequestBody Especie especieActualizada) {        
+        Especie especie = especieService.update(id, especieActualizada);
+            return ResponseEntity.ok(especie);
+    }
+
 
     @PostMapping("/{id}/imagen-general")
     public ResponseEntity<?> agregarImagenGeneral(
@@ -62,9 +73,8 @@ public class EspecieController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable ObjectId id) {
-        especieService.delete(id);
+    public MensajeResponse delete(@PathVariable ObjectId id) {
+        return especieService.delete(id);
     }
-
   
 }
