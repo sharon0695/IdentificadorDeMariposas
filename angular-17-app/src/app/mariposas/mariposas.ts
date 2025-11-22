@@ -211,6 +211,14 @@ export class Mariposas {
     return this.backendUrl + "/" + img;
   }
 
+  getImagenDetallada(tipo: string): string {
+    if (!this.especieSeleccionada || !this.especieSeleccionada.imagenesDetalladas) {
+      return this.backendUrl + "/images/default.png"; 
+    }
+
+    const img = this.especieSeleccionada.imagenesDetalladas[tipo];
+    return this.backendUrl + "/" + img;
+  }
 
   verMapa() {
     window.open('/mapa', '_blank');
@@ -239,9 +247,8 @@ export class Mariposas {
         this.especies = this.especies.filter(e => e.id !== id);
         this.filtrar(); 
       },
-      error: (err) => {
-        console.error(err);
-        alert('Error eliminando especie.');
+      error: () => {
+        alert('Error al eliminar especie');
       }
     });
   }

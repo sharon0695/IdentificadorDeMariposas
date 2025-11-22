@@ -27,10 +27,10 @@
 
   <div class="bloque">
     <h3>Imágenes Detalladas</h3>
-    <img *ngIf="especie.imagenesDetalladas?.alaIzquierda" [src]="especie.imagenesDetalladas?.alaIzquierda">
-    <img *ngIf="especie.imagenesDetalladas?.alaDerecha" [src]="especie.imagenesDetalladas?.alaDerecha">
-    <img *ngIf="especie.imagenesDetalladas?.antenas" [src]="especie.imagenesDetalladas?.antenas">
-    <img *ngIf="especie.imagenesDetalladas?.cuerpo" [src]="especie.imagenesDetalladas?.cuerpo">
+    <img *ngIf="especie.imagenesDetalladas?.alaIzquierda" [src]="getImagenDetallada('alaIzquierda')" style="width:120px; height:auto;">
+    <img *ngIf="especie.imagenesDetalladas?.alaDerecha" [src]="getImagenDetallada('alaDerecha')" style="width:120px; height:auto;">
+    <img *ngIf="especie.imagenesDetalladas?.antenas" [src]="getImagenDetallada('antenas')" style="width:120px; height:auto;">
+    <img *ngIf="especie.imagenesDetalladas?.cuerpo" [src]="getImagenDetallada('cuerpo')" style="width:120px; height:auto;">
   </div>
 
 </div>

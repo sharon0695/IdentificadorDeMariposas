@@ -30,8 +30,8 @@ export class CrearEspecie {
     caracteristicasMorfo: { color: '', tamanoAlas: null, formaAntenas: '' },
     imagenes: [],
     imagenesDetalladas: {},
-    registradoPor: '',         // setear con el user id si aplica
-    ubicacionRecoleccion: null // <-- aquí irá el ObjectId (string) antes de enviar
+    registradoPor: '',         
+    ubicacionRecoleccion: null 
   };
 
   nuevaUbicacion: any = {

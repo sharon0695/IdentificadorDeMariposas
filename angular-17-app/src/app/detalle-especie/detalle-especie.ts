@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Especie } from '../services/especie.service';
+import { Mariposas } from '../mariposas/mariposas';
 
 @Component({
   selector: 'app-detalle-especie',
@@ -10,4 +10,9 @@ import { Especie } from '../services/especie.service';
 })
 export class DetalleEspecie {
   @Input() especie: any;
+  constructor(private mariposas: Mariposas) {}
+
+  getImagenDetallada(tipo: string): string {
+    return this.mariposas.getImagenDetallada(tipo);
+  }
 }
