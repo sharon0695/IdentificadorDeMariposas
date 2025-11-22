@@ -77,6 +77,10 @@ export class EspecieService {
       .pipe(map(e => this.mapEspecie(e)));
   }
 
+  updateEspecie(id: string, especie: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, especie);
+  }
+
   /** Eliminar */
   deleteEspecie(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
