@@ -122,6 +122,10 @@ export class Mariposas {
   }
 
   irAObservaciones() {
+    if (!this.especieSeleccionada) {
+      alert('Por favor, selecciona una especie para ver sus observaciones.');
+      return;
+    }
     this.router.navigate(['/observaciones'], {
       queryParams: {
         especieId: this.especieSeleccionada?.id || null
